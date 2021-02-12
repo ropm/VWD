@@ -9,13 +9,13 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="12cm"
-   height="12cm"
-   viewBox="0 0 120 119.99999"
+   width="107.259mm"
+   height="107.259mm"
+   viewBox="0 0 107.259 107.25899"
    version="1.1"
    id="svg8"
    inkscape:version="0.92.3 (2405546, 2018-03-11)"
-   sodipodi:docname="Scope.svg">
+   sodipodi:docname="ScopePistol.svg">
   <defs
      id="defs2" />
   <sodipodi:namedview
@@ -25,18 +25,18 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.25"
-     inkscape:cx="-1.862505"
-     inkscape:cy="1506.5273"
+     inkscape:zoom="2"
+     inkscape:cx="231.92676"
+     inkscape:cy="215.84452"
      inkscape:document-units="mm"
      inkscape:current-layer="svg8"
      showgrid="false"
      inkscape:window-width="1920"
      inkscape:window-height="1017"
-     inkscape:window-x="1912"
+     inkscape:window-x="3832"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
-     units="cm"
+     units="mm"
      inkscape:snap-bbox="false"
      inkscape:snap-object-midpoints="false" />
   <metadata
@@ -52,8 +52,8 @@
     </rdf:RDF>
   </metadata>
   <path
-     style="opacity:1;fill:#000000;fill-opacity:1;stroke:none;stroke-width:3.33848882;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
-     d="M 53.6294,12.74123 A 53.62904,53.62904 0 0 0 0,66.37063 53.62904,53.62904 0 0 0 53.6294,120 53.62904,53.62904 0 0 0 107.2592,66.37063 53.62904,53.62904 0 0 0 53.6294,12.74123 Z m 0,1.78835 a 51.841408,51.841408 0 0 1 51.841,51.84105 51.841408,51.841408 0 0 1 -39.3272,50.25577 V 66.37063 H 64.3549 V 117.0272 A 51.841408,51.841408 0 0 1 53.6294,118.2117 51.841408,51.841408 0 0 1 41.116,116.61175 V 66.37063 h -1.7884 v 49.7867 A 51.841408,51.841408 0 0 1 1.7887,66.37063 51.841408,51.841408 0 0 1 53.6294,14.52958 Z"
-     id="path4529"
-     inkscape:connector-curvature="0" />
+     style="opacity:1;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.37795275;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
+     d="M 0 202.69336 L 0 407.50977 L 405.38867 407.50977 L 405.38867 202.69336 L 315.68555 202.69336 L 315.68555 264.49805 L 252.40039 264.49805 L 252.40039 202.69336 L 152.99023 202.69336 L 152.99023 264.49805 L 89.703125 264.49805 L 89.703125 202.69336 L 0 202.69336 z "
+     transform="scale(0.26458333)"
+     id="rect816" />
 </svg>

@@ -1,14 +1,17 @@
 const SIZE = 1000;
 const HOUSES=[];
-
-function removeOverlay() {
-    let element = document.getElementById("overlay");
-    element.style.display="none";
-}
-
+var CURRENT = "Moving"
+var DELTA = [];
+var SCREENX = [];
+var POINTX;
+var SCREENY = [];
+var POINTY;
 
 function main() {
-    animate();
+    document.getElementById("scopeMoving").style.display = "inline"
+    document.getElementById("targetMoving").style.display = "inline"
+
+    animate();setInterval(calcDelta, 20);
 }
 
 function handleMouseMove(event) {
@@ -25,13 +28,66 @@ function handleMouseMove(event) {
         (doc && doc.clientLeft || body && body.clientLeft || 0);
       event.pageY = event.clientY +
         (doc && doc.scrollTop  || body && body.scrollTop  || 0) -
-        (doc && doc.clientTop  || body && body.clientTop  || 0 );
+        (doc && doc.clientTop  || body && body.clientTop  || 0 ); //https://stackoverflow.com/questions/4983398/mouse-movement-problem-on-a-webpage-javascript/4983426#4983426
     }
 
-    scope = document.getElementById("Scope");
+    scope = document.getElementById("scope" + CURRENT);
     scope.style.margin = event.pageY + "px 0% 0% " + event.pageX + "px";
+    POINTX = event.pageX;
+    POINTY = event.pageY;
+}
+
+function calcDelta() {
+    if (SCREENX.length < 6) {
+        SCREENX.push(POINTX);
+        SCREENY.push(POINTY);
+        return;
+    }
+    SCREENX.unshift(POINTX);
+    SCREENY.unshift(POINTY);
+    SCREENX.pop();
+    SCREENY.pop();
+    DELTA = [SCREENX[0] - SCREENX[5],SCREENY[0] - SCREENY[5]]
+    document.getElementById("SX").innerHTML = DELTA[0];
+    document.getElementById("SY").innerHTML = DELTA[1];
 }
 
 function animate() {
-    window.requestAnimationFrame(animate);
+    //window.requestAnimationFrame(animate);
+}
+
+function changePistol() {
+    CURRENT = "Pistol";
+    document.getElementById("scopePistol").style.display = "inline";
+    document.getElementById("targetPistol").style.display = "inline";
+
+    document.getElementById("scopeStatic").style.display = "none";
+    document.getElementById("targetStatic").style.display = "none";
+    document.getElementById("scopeMoving").style.display = "none";
+    document.getElementById("targetMoving").style.display = "none";
+    document.getElementById("frameMoving").style.display = "none";
+}
+
+function changeStatic() {
+    CURRENT = "Static";
+    document.getElementById("scopeStatic").style.display = "inline";
+    document.getElementById("targetStatic").style.display = "inline";
+
+    document.getElementById("scopePistol").style.display = "none";
+    document.getElementById("targetPistol").style.display = "none";
+    document.getElementById("scopeMoving").style.display = "none";
+    document.getElementById("targetMoving").style.display = "none";
+    document.getElementById("frameMoving").style.display = "none";
+}
+
+function changeMoving() {
+    CURRENT = "Moving";
+    document.getElementById("scopeMoving").style.display = "inline";
+    document.getElementById("targetMoving").style.display = "inline";
+    document.getElementById("frameMoving").style.display = "inline";
+
+    document.getElementById("scopePistol").style.display = "none";
+    document.getElementById("targetPistol").style.display = "none";
+    document.getElementById("scopeStatic").style.display = "none";
+    document.getElementById("targetStatic").style.display = "none";
 }

@@ -1,7 +1,24 @@
 
 body {
 	background: #444444;
-	cursor: none; 
+	cursor: none;
+	overflow-y: hidden;
+	overflow-x: hidden;
+	margin: 0;
+}
+
+button {
+	bottom: 10px;
+	margin-left: 1em;
+}
+
+canvas {
+	position: fixed;
+	background: #c42b2b;
+	height: 30vh;
+	width: 30vh;
+	right: 0px;
+	bottom: 0px;
 }
 
 .base {
@@ -11,9 +28,48 @@ body {
 	left: 0;
 }
 
+.target {
+	position: fixed;
+}
+
+.tMoving {
+	width: 10vmax;
+	height: 10vmax;
+	top: 16vmax;
+	left: 20vw;
+}
+
+.tStatic {
+	height: 70%;
+	transform:translate(-50%);
+	left: 50%;
+}
+
 .scope {
-	margin: 1% 1% 1% 1%;
 	transform:translate(-50%,-50%);
-	width: 4%;
-	height: 4%;
+	pointer-events: none;
+}
+
+.sMoving {
+	width: 10%;
+	height: 10%;
+}
+
+.sStatic {
+	width: 50%;
+	height: 50%;
+}
+
+.top {
+	height: 70vh;
+	width: 100vw;
+}
+
+.bottom {
+	background-color: #4e7e80;
+	bottom: 0;
+	height: 30vh;
+	width: 100vw;
+	left: 0;
+	right: 0;
 }

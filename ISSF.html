@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8'>
+        <title>ISSF shooting</title>
+        <meta name='viewport' content='width=device-width, initial-scale=1'>
+        <link rel="stylesheet" href="style.css">
+        <script src="code.js"></script>
+        <script>
+              document.onmousemove = handleMouseMove;
+        </script>
+    </head>
+    <body onload="main()">
+        <div class="top">
+            <img src="TargetPistol.svg" style="display:none" class="target tStatic" id="targetPistol"/>
+            <img src="TargetStatic.svg" style="display:none" class="target tStatic" id="targetStatic"/>
+            <img src="TargetMoving.svg" style="display:none" class="target tMoving" id="targetMoving"/>
+            <img src="Shooting.svg"     class="base" id="frameMoving"/>
+            <img src="scopePistol.svg" style="display:none" class="scope sStatic" id="scopePistol"/>
+            <img src="scopeStatic.svg" style="display:none" class="scope sStatic" id="scopeStatic"/>
+            <img src="scopeMoving.svg" style="display:none" class="scope sMoving" id="scopeMoving"/>
+        </div>
+        <div class="bottom">
+            <button onclick="changePistol()">Pistol</button>
+            <button onclick="changeStatic()">Static</button>
+            <button onclick="changeMoving()">Moving target</button>
+            <p id="SX">X</p>
+            <p id="SY">Y</p>
+            <canvas id="myCanvas"></canvas>
+        </div>
+    </body>
+</html>
