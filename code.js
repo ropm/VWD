@@ -6,12 +6,50 @@ var SCREENX = [];
 var POINTX;
 var SCREENY = [];
 var POINTY;
+var CURRENT_BULLET = 1;
+var SCORE_TABLE;
+var TOTAL_SCORE = 0;
 
 function main() {
     document.getElementById("scopeMoving").style.display = "inline"
     document.getElementById("targetMoving").style.display = "inline"
+    SCORE_TABLE = document.getElementById("scoreTable");
 
     animate();setInterval(calcDelta, 20);
+}
+
+function addScore(hit){
+
+    
+    if (CURRENT_BULLET > 10) {
+        console.log("no bullets left")
+        return
+    }
+    // Kun on ammuttu yli 5, siirrytään pistetaulukossa alemmalle riville, muussa tapauksessa pisteet kirjataan ylemmälle riville.
+    if (hit) {
+        if (CURRENT_BULLET > 5) { 
+            SCORE_TABLE.children[0].children[2].children[CURRENT_BULLET-6].innerHTML = 1;
+        } else {
+            SCORE_TABLE.children[0].children[1].children[CURRENT_BULLET].innerHTML = 1;
+        }
+        SCORE_TABLE.children[0].children[1].children[6].innerHTML + 1;
+        TOTAL_SCORE++;
+    } else {
+        if (CURRENT_BULLET > 5) { 
+            SCORE_TABLE.children[0].children[2].children[CURRENT_BULLET-6].innerHTML = 0;
+        } else {
+            SCORE_TABLE.children[0].children[1].children[CURRENT_BULLET].innerHTML = 0;
+        } 
+    }
+
+    var bulletImg = document.createElement("img")
+    bulletImg.src = "bullet.svg"
+
+    SCORE_TABLE.children[0].children[1].children[6].innerHTML = TOTAL_SCORE;
+
+    document.getElementById("scoreTable").children[0].children[0].children[1].innerHTML = "<img src=\"bullet.svg\">" + `  ${10 - CURRENT_BULLET}` + "/10"
+    CURRENT_BULLET++;
+
 }
 
 function handleMouseMove(event) {

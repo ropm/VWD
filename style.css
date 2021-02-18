@@ -73,3 +73,37 @@ canvas {
 	left: 0;
 	right: 0;
 }
+
+/* Pisteentaulukko */
+#scoreTable {
+	margin-left: 1em;
+	table-layout:fixed;
+	width: 40%; 
+	text-align: center;
+	font-weight: bold;
+}
+ 
+th{
+	text-align: center;
+}
+ 
+#scoreTable, th, td {
+
+	border: 2px solid #000;
+	border-collapse: collapse; 
+}
+ 
+th, td {
+	padding: 2%;
+}
+
+.blank_row
+{
+background-color: #4e7e80;
+}
+
+#noBorder {
+  border: none;
+}
+
+

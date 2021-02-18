@@ -6,17 +6,15 @@
         <meta name='viewport' content='width=device-width, initial-scale=1'>
         <link rel="stylesheet" href="style.css">
         <script src="code.js"></script>
-        <script>
-              document.onmousemove = handleMouseMove;
-        </script>
+        <script>document.onmousemove = handleMouseMove;</script>
     </head>
     <body onload="main()">
         <div class="top">
-            <img src="TargetPistol.svg" style="display:none" class="target tStatic" id="targetPistol"/>
-            <img src="TargetStatic.svg" style="display:none" class="target tStatic" id="targetStatic"/>
-            <img src="TargetMoving.svg" style="display:none" class="target tMoving" id="targetMoving"/>
-            <img src="Shooting.svg"     class="base" id="frameMoving"/>
-            <img src="scopePistol.svg" style="display:none" class="scope sStatic" id="scopePistol"/>
+            <img  src="Shooting.svg"    style=display:inline class="base" id="frameMoving" onclick="addScore(false)"/>
+            <img  src="TargetPistol.svg" style="display:none" class="target tStatic" id="targetPistol"  onclick="addScore(true)"/>
+            <img src="TargetStatic.svg" style="display:none" class="target tStatic" id="targetStatic"  onclick="addScore(true)"/>
+            <img  src="TargetMoving.svg" style="display:none" class="target tMoving" id="targetMoving" onclick="addScore(true)" />
+            <img src="scopePistol.svg" style="display:none" class="scope sStatic" id="scopePistol" />
             <img src="scopeStatic.svg" style="display:none" class="scope sStatic" id="scopeStatic"/>
             <img src="scopeMoving.svg" style="display:none" class="scope sMoving" id="scopeMoving"/>
         </div>
@@ -26,6 +24,29 @@
             <button onclick="changeMoving()">Moving target</button>
             <p id="SX">X</p>
             <p id="SY">Y</p>
+            <table id="scoreTable">
+                <tr>
+                  <th colspan="1" id="noBorder">Bullets</th>
+                  <th id="noBorder" class="blank_row" colspan="5"> <img id="bullet" src="Bullet.svg" alt="">10/10</th>
+                  <th>Total</th>
+                </tr>
+                <tr>
+                  <td rowspan="2">Score</td> 
+                  <td>&nbsp</td>
+                  <td>&nbsp</td>
+                  <td>&nbsp</td>
+                  <td>&nbsp</td>
+                  <td>&nbsp</td>
+                  <td rowspan="2">&nbsp</td>
+                </tr>
+                <tr>
+                  <td>&nbsp</td>
+                  <td>&nbsp</td>
+                  <td>&nbsp</td>
+                  <td>&nbsp</td>
+                  <td>&nbsp</td>
+                </tr>
+              </table>  
             <canvas id="myCanvas"></canvas>
         </div>
     </body>
