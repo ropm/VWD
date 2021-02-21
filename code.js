@@ -1,5 +1,6 @@
 const SIZE = 1000;
 const HOUSES=[];
+const el = document.querySelector('.scope sStatic');
 var CURRENT = "Moving"
 var DELTA = [];
 var SCREENX = [];
@@ -9,6 +10,8 @@ var POINTY;
 var CURRENT_BULLET = 1;
 var SCORE_TABLE;
 var TOTAL_SCORE = 0;
+var lastMouseMove = 101;
+var first = 0;
 
 function main() {
     document.getElementById("scopeMoving").style.display = "inline"
@@ -54,6 +57,7 @@ function addScore(hit){
 
 function handleMouseMove(event) {
     var dot, eventDoc, doc, body, pageX, pageY;
+    //lastMouseMove = Date.now();  aikaraja millon heilunta alkaa, aiheuttaa teleporttailua #TODO
     
     event = event || window.event;
     if (event.pageX == null && event.clientX != null) {
@@ -70,10 +74,44 @@ function handleMouseMove(event) {
     }
 
     scope = document.getElementById("scope" + CURRENT);
-    scope.style.margin = event.pageY + "px 0% 0% " + event.pageX + "px";
+    //scope.style.margin = event.pageY + "px 0% 0% " + event.pageX + "px";
     POINTX = event.pageX;
     POINTY = event.pageY;
 }
+
+function updateMouse (x, y) {
+    scope = document.getElementById("scope" + CURRENT);
+    scope.style.transform = `translate(${x}px, ${y}px)`;
+}
+
+doElsCollide = function(el1, el2) {
+    // Palauttaa boolean, jos divit päälekkäin https://stackoverflow.com/questions/9607252/how-to-detect-when-an-element-over-another-element-in-javascript
+    el1.offsetBottom = el1.offsetTop + el1.offsetHeight;
+    el1.offsetRight = el1.offsetLeft + el1.offsetWidth;
+    el2.offsetBottom = el2.offsetTop + el2.offsetHeight;
+    el2.offsetRight = el2.offsetLeft + el2.offsetWidth;
+    
+    return !((el1.offsetBottom < el2.offsetTop) ||
+             (el1.offsetTop > el2.offsetBottom) ||
+             (el1.offsetRight < el2.offsetLeft) ||
+             (el1.offsetLeft > el2.offsetRight))
+};
+
+function swayMouse (a) { 
+    if (lastMouseMove > 100 && CURRENT != "Moving") {
+        
+        const noiseX = (noise.simplex3(2, 0, a*0.0004) + 1) / 2;
+        const noiseY = (noise.simplex3(10, 0, a*0.0004) + 1) / 2;
+        const x = POINTX + noiseX * 20;
+        const y = POINTY + noiseY * 20;
+        updateMouse(x, y)          
+            
+        
+    }else{
+        updateMouse(POINTX, POINTY)
+    }
+    requestAnimationFrame(swayMouse);
+  }
 
 function calcDelta() {
     if (SCREENX.length < 6) {
@@ -129,3 +167,19 @@ function changeMoving() {
     document.getElementById("scopeStatic").style.display = "none";
     document.getElementById("targetStatic").style.display = "none";
 }
+
+$(document).ready(function () {
+        $( "div.bottom" )
+        .mouseenter(function() {
+        console.log('enter')
+        lastMouseMove = 99;
+        })
+        .mouseleave(function() {
+        console.log('leave')
+        lastMouseMove = 101;
+        });
+
+  });
+
+
+requestAnimationFrame(swayMouse);
