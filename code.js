@@ -1,6 +1,5 @@
 const SIZE = 1000;
 const HOUSES=[];
-const el = document.querySelector('.scope sStatic');
 var CURRENT = "Moving"
 var DELTA = [];
 var SCREENX = [];
@@ -77,6 +76,9 @@ function handleMouseMove(event) {
     //scope.style.margin = event.pageY + "px 0% 0% " + event.pageX + "px";
     POINTX = event.pageX;
     POINTY = event.pageY;
+
+
+    
 }
 
 function updateMouse (x, y) {
@@ -102,14 +104,15 @@ function swayMouse (a) {
         
         const noiseX = (noise.simplex3(2, 0, a*0.0004) + 1) / 2;
         const noiseY = (noise.simplex3(10, 0, a*0.0004) + 1) / 2;
-        const x = POINTX + noiseX * 20;
-        const y = POINTY + noiseY * 20;
+        const x = (POINTX + noiseX * 20);
+        const y = (POINTY + noiseY * 20);
         updateMouse(x, y)          
             
         
     }else{
         updateMouse(POINTX, POINTY)
     }
+    document.getElementById("reticle_coords").innerHTML = document.getElementById('scope'+CURRENT).style.transform +' - mouse X:'+POINTX+'-Y:'+POINTY
     requestAnimationFrame(swayMouse);
   }
 
