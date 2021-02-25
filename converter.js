@@ -1,7 +1,7 @@
-/*Links that helped me to solve*/
-//https://gist.github.com/armollica/99f18720eb9762351febd64236bb1b9e
-//https://levelup.gitconnected.com/draw-an-svg-to-canvas-and-download-it-as-image-in-javascript-f7f7713cf81f
-
+/*Links that helped me to solve
+https://gist.github.com/armollica/99f18720eb9762351febd64236bb1b9e
+https://levelup.gitconnected.com/draw-an-svg-to-canvas-and-download-it-as-image-in-javascript-f7f7713cf81f
+*/
 /* 
 ScopeMoving.svg
 ScopePistol.svg
@@ -47,14 +47,29 @@ let clonedsvgTPistol = svgTPistol.cloneNode(true);
 let clonedsvgTStatic = svgTStatic.cloneNode(true);
 // true for deep clone(check what does it mean)
 
+//Create blob object from cloned node
 let outerHTMLSP = clonedsvgSPistol.outerHTMLSP,
-blobSP = new Blob([outerHTML],
+blobSP = new Blob([outerHTMLSP],
     {type:'image/svg+xml;charset=utf-8'}); //ScopePistol
-/*let 
-    blobSS = new Blob([outerHTML],
+
+let outerHTMLSS = clonedsvgSStatic.outerHTMLSS,
+blobSS = new Blob([outerHTMLSS],
     {type:'image/svg+xml;charset=utf-8'}); //ScopeStatic
-blobShooting = new Blob([outerHTML],
+    
+let outerHTMLSho = clonedsvgShooting.outerHTMLSho,
+blobSho = new Blob([outerHTMLSho],
     {type:'image/svg+xml;charset=utf-8'}); //Shooting
-blobTM = new Blob([outerHTML],
+    
+let outerHTMLTM = clonedsvgTMoving.outerHTMLTM,
+blobTM = new Blob([outerHTMLTM],
     {type:'image/svg+xml;charset=utf-8'}); //TargetMoving
-*/
+
+let outerHTMLTP = clonedsvgTPistol.outerHTMLTP,
+blobTP = new Blob([outerHTMLTP],
+    {type: 'image/svg+xml; charset = utf-8'}); //TargetPistol
+
+let outerHTMLTSta = clonedsvgTStatic.outerHTMLTSta,
+blobSta = new Blob([outerHTMLTSta], 
+    {type: 'image/svg+xml; charset = utf-8'}); //TargetStatic
+
+//create URL blob object
