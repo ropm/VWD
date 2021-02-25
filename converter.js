@@ -18,6 +18,8 @@ svgShooting
 svgTMoving
 svgTPistol
 svgTStatic
+
+
 */
 //variables for .svg files
 //var svgSMoving = document.getElementById('ScopeMoving');
@@ -73,3 +75,20 @@ blobSta = new Blob([outerHTMLTSta],
     {type: 'image/svg+xml; charset = utf-8'}); //TargetStatic
 
 //create URL blob object
+let URLSP = window.URL || window.webkitURL || window;
+let blobURLSP = URL.createObjectURL(blobSP); //ScopePistol
+
+let URLSS = window.URL || window.webkitURL || window;
+let blobURLSS = URL.createObjectURL(blobSS); //ScopeStatic
+
+let URLSho = window.URL || window.webkitURL || window;
+let blobURLSho = URL.createObjectURL(blobSho); //Shooting
+
+let URLTM = window.URL || window.webkitURL || window;
+let blobURLTM = URL.createObjectURL(blobTM); //TargetMoving
+
+let URLTP = window.URL || window.webkitURL || window;
+let blobURLTP = URL.createObjectURL(blobTP); //TargetPistol
+
+let URLTS =  window.URL || window.webkitURL || window;
+let blobURLTS = URL.createObjectURL(blobSta); //TargetStatic
