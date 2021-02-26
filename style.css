@@ -1,7 +1,6 @@
 
 body {
 	background: #444444;
-	cursor: auto;
 	overflow-y: hidden;
 	overflow-x: hidden;
 	margin: 0;
@@ -33,7 +32,6 @@ canvas {
 }
 
 .tMoving {
-	width: 10vmax;
 	height: 10vmax;
 	top: 16vmax;
 	left: 20vw;
@@ -46,21 +44,19 @@ canvas {
 }
 
 .scope {
-	transform:translate(-50%,-50%);
 	pointer-events: none;
 }
 
 .sMoving {
-	width: 10%;
 	height: 10%;
 }
 
 .sStatic {
-	width: 50%;
 	height: 50%;
 }
 
 .top {
+	cursor: none;
 	height: 70vh;
 	width: 100vw;
 }
@@ -76,6 +72,7 @@ canvas {
 
 /* Pisteentaulukko */
 #scoreTable {
+	margin-top: 1em;
 	margin-left: 1em;
 	table-layout:fixed;
 	width: 40%; 
@@ -88,7 +85,6 @@ th{
 }
  
 #scoreTable, th, td {
-
 	border: 2px solid #000;
 	border-collapse: collapse; 
 }
@@ -105,5 +101,3 @@ background-color: #4e7e80;
 #noBorder {
   border: none;
 }
-
-

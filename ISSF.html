@@ -6,26 +6,26 @@
         <meta name='viewport' content='width=device-width, initial-scale=1'>
         <link rel="stylesheet" href="style.css">
         <script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/127738/perlin.js'></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>  No longer needed-->
         <script src="code.js"></script>
         <script>document.onmousemove = handleMouseMove;</script>
     </head>
     <body onload="main()">
-        <div class="top">
-            <img  src="Shooting.svg"    style=display:inline class="base" id="frameMoving" onclick="addScore(false)"/>
-            <img  src="TargetPistol.svg" style="display:none" class="target tStatic" id="targetPistol"  onclick="addScore(true)"/>
-            <img src="TargetStatic.svg" style="display:none" class="target tStatic" id="targetStatic"  onclick="addScore(true)"/>
-            <img  src="TargetMoving.svg" style="display:none" class="target tMoving" id="targetMoving" onclick="addScore(true)" />
-            <img src="scopePistol.svg" style="display:none" class="scope sStatic" id="scopePistol" />
+      <div class="top" onclick="addScore()" onmouseover="mouseHover(101)">
+            <img src="TargetPistol.svg" style="display:none" class="target tStatic" id="targetPistol"/>
+            <img src="TargetStatic.svg" style="display:none" class="target tStatic" id="targetStatic"/>
+            <img src="TargetMoving.svg" style="display:none" class="target tMoving" id="targetMoving"/>
+            <img src="Shooting.svg"    style=display:inline class="base noMouse" id="frameMoving"/>
+            <img src="scopePistol.svg" style="display:none" class="scope sStatic" id="scopePistol"/>
             <img src="scopeStatic.svg" style="display:none" class="scope sStatic" id="scopeStatic"/>
             <img src="scopeMoving.svg" style="display:none" class="scope sMoving" id="scopeMoving"/>
         </div>
-        <div class="bottom">
+        <div class="bottom" onmouseover="mouseHover(99)">
             <button onclick="changePistol()">Pistol</button>
             <button onclick="changeStatic()">Static</button>
             <button onclick="changeMoving()">Moving target</button>
-            <p id="SX">X</p>
-            <p id="SY">Y</p>
+            <!--<p id="SX">X</p>-->
+            <!--<p id="SY">Y</p>-->
             <table id="scoreTable">
                 <tr>
                   <th colspan="1" id="noBorder">Bullets</th>

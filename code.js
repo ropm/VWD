@@ -17,7 +17,7 @@ function main() {
     document.getElementById("targetMoving").style.display = "inline"
     SCORE_TABLE = document.getElementById("scoreTable");
 
-    animate();setInterval(calcDelta, 20);
+    animate(); setInterval(calcDelta, 20);
 }
 
 function addScore(hit){
@@ -28,21 +28,14 @@ function addScore(hit){
         return
     }
     // Kun on ammuttu yli 5, siirrytään pistetaulukossa alemmalle riville, muussa tapauksessa pisteet kirjataan ylemmälle riville.
-    if (hit) {
-        if (CURRENT_BULLET > 5) { 
-            SCORE_TABLE.children[0].children[2].children[CURRENT_BULLET-6].innerHTML = 1;
-        } else {
-            SCORE_TABLE.children[0].children[1].children[CURRENT_BULLET].innerHTML = 1;
-        }
-        SCORE_TABLE.children[0].children[1].children[6].innerHTML + 1;
-        TOTAL_SCORE++;
+
+    score = getScore();
+    if (CURRENT_BULLET > 5) { 
+        SCORE_TABLE.children[0].children[2].children[CURRENT_BULLET-6].innerHTML = score;
     } else {
-        if (CURRENT_BULLET > 5) { 
-            SCORE_TABLE.children[0].children[2].children[CURRENT_BULLET-6].innerHTML = 0;
-        } else {
-            SCORE_TABLE.children[0].children[1].children[CURRENT_BULLET].innerHTML = 0;
-        } 
+        SCORE_TABLE.children[0].children[1].children[CURRENT_BULLET].innerHTML = score;
     }
+    TOTAL_SCORE += score;
 
     var bulletImg = document.createElement("img")
     bulletImg.src = "bullet.svg"
@@ -51,7 +44,6 @@ function addScore(hit){
 
     document.getElementById("scoreTable").children[0].children[0].children[1].innerHTML = "<img src=\"bullet.svg\">" + `  ${10 - CURRENT_BULLET}` + "/10"
     CURRENT_BULLET++;
-
 }
 
 function handleMouseMove(event) {
@@ -76,14 +68,68 @@ function handleMouseMove(event) {
     //scope.style.margin = event.pageY + "px 0% 0% " + event.pageX + "px";
     POINTX = event.pageX;
     POINTY = event.pageY;
+}
 
+function getScore() {
+    var BB = document.getElementById("target" + CURRENT).getBoundingClientRect();
+    var sMoving = document.getElementById("scopeMoving").getBoundingClientRect();
+    var sNotMov = document.getElementById("scope" + CURRENT).getBoundingClientRect();
+    var middle = [BB.left + (BB.width / 2), BB.top + BB.height * 0.69523469387755102040816326530612];
+    var mmToPx = 310 / BB.width;
 
-    
+    pistolScore = [11.5,    27.5,   43.5,   59.5,   75.5,   91.5,   107.5,  123.5,  139.5,  155.5];
+    staticScore = [0.5,     5.5,    10.5,   15.5,   20.5,   25.5,   30.5,   35.5,   40.5,   45.5];
+    movingScore = [5.5,     10.5,   15.5,   20.5,   25.5,   30.5,   35.5,   40.5,   45.5,   50.5];
+
+    //Not final before target is moving
+    if (CURRENT == "Moving") {
+        if (CURRENT_BULLET % 2 == 0) {
+            dist = Math.sqrt(Math.pow((POINTX + (-sMoving.width / 2) + (sMoving.width * 0.374998835) - middle[0]), 2) + Math.pow((POINTY - middle[1]), 2)) * mmToPx; //to right 0.374998835
+        } else {  
+            dist = Math.sqrt(Math.pow((POINTX + (-sMoving.width / 2) + (sMoving.width * 0.608331236) - middle[0]), 2) + Math.pow((POINTY - middle[1]), 2)) * mmToPx; //to left 0.608331236
+        }
+    } else {
+        dist = Math.sqrt(Math.pow((sNotMov.left + sNotMov.width / 2 - middle[0]),2) + Math.pow((sNotMov.top + sNotMov.height / 2 - middle[1]),2)) * mmToPx;
+    }
+
+    //console.log(middle);
+    //console.log(POINTX + " " + POINTY + " " + mmToPx + " " + dist);
+
+    switch (CURRENT) {
+        case "Pistol":
+            for (let i = 0; i < pistolScore.length; i++) {
+                if (dist - 2.25 <= pistolScore[i] / 2) {
+                    return 10 - i;
+                }
+            }
+            break;
+        case "Static":
+            for (let i = 0; i < staticScore.length; i++) {
+                if (dist - 2.25 <= staticScore[i] / 2) {
+                    return 10 - i;
+                }
+            }
+            break;
+        case "Moving":
+            for (let i = 0; i < movingScore.length; i++) {
+                if (dist - 2.25 <= movingScore[i] / 2) {
+                    return 10 - i;
+                }
+            }
+            break;
+        default:
+            //failure
+            break;
+    }
+    return 0;
 }
 
 function updateMouse (x, y) {
     scope = document.getElementById("scope" + CURRENT);
-    scope.style.transform = `translate(${x}px, ${y}px)`;
+    var BB = document.getElementById("scope" + CURRENT).getBoundingClientRect();
+    var xScope = x - BB.width / 2;
+    var yScope = y - BB.height / 2;
+    scope.style.transform = `translate(` + xScope + `px, ` + yScope + `px)`;
 }
 
 doElsCollide = function(el1, el2) {
@@ -127,8 +173,6 @@ function calcDelta() {
     SCREENX.pop();
     SCREENY.pop();
     DELTA = [SCREENX[0] - SCREENX[5],SCREENY[0] - SCREENY[5]]
-    document.getElementById("SX").innerHTML = DELTA[0];
-    document.getElementById("SY").innerHTML = DELTA[1];
 }
 
 function animate() {
@@ -137,6 +181,7 @@ function animate() {
 
 function changePistol() {
     CURRENT = "Pistol";
+    resetScore();
     document.getElementById("scopePistol").style.display = "inline";
     document.getElementById("targetPistol").style.display = "inline";
 
@@ -149,6 +194,7 @@ function changePistol() {
 
 function changeStatic() {
     CURRENT = "Static";
+    resetScore();
     document.getElementById("scopeStatic").style.display = "inline";
     document.getElementById("targetStatic").style.display = "inline";
 
@@ -161,6 +207,7 @@ function changeStatic() {
 
 function changeMoving() {
     CURRENT = "Moving";
+    resetScore();
     document.getElementById("scopeMoving").style.display = "inline";
     document.getElementById("targetMoving").style.display = "inline";
     document.getElementById("frameMoving").style.display = "inline";
@@ -171,7 +218,28 @@ function changeMoving() {
     document.getElementById("targetStatic").style.display = "none";
 }
 
-$(document).ready(function () {
+function mouseHover(i) {
+    lastMouseMove = i;
+}
+
+function resetScore() {
+    CURRENT_BULLET = 1;
+    TOTAL_SCORE = 0;
+
+    for (let i = 0; i < 11; i++) {
+        if (i > 5) { 
+            SCORE_TABLE.children[0].children[2].children[i - 6].innerHTML = "&nbsp";
+        } else {
+            SCORE_TABLE.children[0].children[1].children[i].innerHTML = "&nbsp";
+        }
+    }
+    SCORE_TABLE.children[0].children[1].children[0].innerHTML = "Score";
+    SCORE_TABLE.children[0].children[1].children[6].innerHTML = "&nbsp";
+
+    document.getElementById("scoreTable").children[0].children[0].children[1].innerHTML = "<img src=\"bullet.svg\">" + `  ${10 - CURRENT_BULLET}` + "/10"
+}
+
+/*$(document).ready(function () {
         $( "div.bottom" )
         .mouseenter(function() {
         console.log('enter')
@@ -182,7 +250,6 @@ $(document).ready(function () {
         lastMouseMove = 101;
         });
 
-  });
-
+});*/
 
 requestAnimationFrame(swayMouse);
