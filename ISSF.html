@@ -24,6 +24,12 @@
             <button onclick="changePistol()">Pistol</button>
             <button onclick="changeStatic()">Static</button>
             <button onclick="changeMoving()">Moving target</button>
+            <label for="movingSpeed" id="movingSpeedLabel">Moving target speed:</label>
+            <select name="movingSpeed" id="movingSpeed" onchange="onSpeedChange()">
+              <option value="10">Medium</option>
+              <option value="5">Fast</option>
+              <option value="20">Slow</option>
+            </select>
             <!--<p id="SX">X</p>-->
             <!--<p id="SY">Y</p>-->
             <table id="scoreTable">

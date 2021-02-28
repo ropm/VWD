@@ -12,12 +12,15 @@ var TOTAL_SCORE = 0;
 var lastMouseMove = 101;
 var first = 0;
 
+let interval = null;
+
 function main() {
     document.getElementById("scopeMoving").style.display = "inline"
     document.getElementById("targetMoving").style.display = "inline"
     SCORE_TABLE = document.getElementById("scoreTable");
 
-    animate(); setInterval(calcDelta, 20);
+    animate(); 
+    setInterval(calcDelta, 20);
 }
 
 function addScore(hit){
@@ -175,13 +178,72 @@ function calcDelta() {
     DELTA = [SCREENX[0] - SCREENX[5],SCREENY[0] - SCREENY[5]]
 }
 
+/**
+ * Toggle the visibility of speed selector and it's label.
+ * True hides, false shows.
+ * 
+ * @param {boolean} hide 
+ */
+function toggleSpeedSelect(hide) {
+    const speedSelect = document.getElementById('movingSpeed');
+    const speedLabel = document.getElementById('movingSpeedLabel');
+    if (hide) {
+        speedSelect.classList.add('hidden-toggle');
+        speedLabel.classList.add('hidden-toggle');
+    }else {
+        speedSelect.classList.remove('hidden-toggle');
+        speedLabel.classList.remove('hidden-toggle');
+    }
+}
+
+/**
+ * Clears the interval, if exists.
+ */
+function intervalClear() {
+    if (interval) {
+        clearInterval(interval);
+    }
+}
+
+/**
+ * On change handler for the speed selector. Clears interval 
+ * and restarts animation.
+ */
+function onSpeedChange() {
+    intervalClear();
+    animate();
+}
+
+/**
+ * Move the target from side to side, speed depends on selected value 
+ * from MovingSpeed selector. Sets the interval.
+ */
 function animate() {
-    //window.requestAnimationFrame(animate);
+    const movingTarget = document.getElementById('targetMoving');
+    const speed = document.getElementById('movingSpeed').value;
+    const width = document.getElementById("frameMoving").width;
+    let currPos = 0;
+    let dir = 'R';
+    interval = setInterval(() => {
+        if (dir === 'L') {
+            currPos--;
+            movingTarget.style.left = `${currPos}px`;
+            if (currPos === 0) {
+                dir = 'R';
+            }
+        } else if (currPos < width && dir === 'R') {
+            currPos++;
+            movingTarget.style.left = `${currPos}px`;
+        }else {
+            dir = 'L';
+        }
+    }, speed);
 }
 
 function changePistol() {
     CURRENT = "Pistol";
     resetScore();
+    toggleSpeedSelect(true);
     document.getElementById("scopePistol").style.display = "inline";
     document.getElementById("targetPistol").style.display = "inline";
 
@@ -195,6 +257,7 @@ function changePistol() {
 function changeStatic() {
     CURRENT = "Static";
     resetScore();
+    toggleSpeedSelect(true);
     document.getElementById("scopeStatic").style.display = "inline";
     document.getElementById("targetStatic").style.display = "inline";
 
@@ -208,6 +271,9 @@ function changeStatic() {
 function changeMoving() {
     CURRENT = "Moving";
     resetScore();
+    toggleSpeedSelect(false);
+    intervalClear();
+    animate();
     document.getElementById("scopeMoving").style.display = "inline";
     document.getElementById("targetMoving").style.display = "inline";
     document.getElementById("frameMoving").style.display = "inline";

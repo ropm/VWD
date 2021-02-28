@@ -1,103 +1,108 @@
-
 body {
-	background: #444444;
-	overflow-y: hidden;
-	overflow-x: hidden;
-	margin: 0;
+    background: #444444;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    margin: 0;
 }
 
 button {
-	bottom: 10px;
-	margin-left: 1em;
+    bottom: 10px;
+    margin-left: 1em;
 }
 
 canvas {
-	position: fixed;
-	background: #c42b2b;
-	height: 30vh;
-	width: 30vh;
-	right: 0px;
-	bottom: 0px;
+    position: fixed;
+    background: #c42b2b;
+    height: 30vh;
+    width: 30vh;
+    right: 0px;
+    bottom: 0px;
 }
 
 .base {
-	width: 100vmax;
-	position: absolute;
-	top: 0;
-	left: 0;
+    width: 100vmax;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .target {
-	position: fixed;
+    position: fixed;
 }
 
 .tMoving {
-	height: 10vmax;
-	top: 16vmax;
-	left: 20vw;
+    height: 10vmax;
+    top: 16vmax;
+    left: 20vw;
 }
 
 .tStatic {
-	height: 70%;
-	transform:translate(-50%);
-	left: 50%;
+    height: 70%;
+    transform: translate(-50%);
+    left: 50%;
 }
 
 .scope {
-	pointer-events: none;
+    pointer-events: none;
 }
 
 .sMoving {
-	height: 10%;
+    height: 10%;
 }
 
 .sStatic {
-	height: 50%;
+    height: 50%;
 }
 
 .top {
-	cursor: none;
-	height: 70vh;
-	width: 100vw;
+    cursor: none;
+    height: 70vh;
+    width: 100vw;
 }
 
 .bottom {
-	background-color: #4e7e80;
-	bottom: 0;
-	height: 30vh;
-	width: 100vw;
-	left: 0;
-	right: 0;
+    background-color: #4e7e80;
+    bottom: 0;
+    height: 30vh;
+    width: 100vw;
+    left: 0;
+    right: 0;
 }
 
 /* Pisteentaulukko */
 #scoreTable {
-	margin-top: 1em;
-	margin-left: 1em;
-	table-layout:fixed;
-	width: 40%; 
-	text-align: center;
-	font-weight: bold;
-}
- 
-th{
-	text-align: center;
-}
- 
-#scoreTable, th, td {
-	border: 2px solid #000;
-	border-collapse: collapse; 
-}
- 
-th, td {
-	padding: 2%;
+    margin-top: 1em;
+    margin-left: 1em;
+    table-layout: fixed;
+    width: 40%;
+    text-align: center;
+    font-weight: bold;
 }
 
-.blank_row
-{
-background-color: #4e7e80;
+th {
+    text-align: center;
+}
+
+#scoreTable,
+th,
+td {
+    border: 2px solid #000;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 2%;
+}
+
+.blank_row {
+    background-color: #4e7e80;
 }
 
 #noBorder {
-  border: none;
+    border: none;
+}
+
+.hidden-toggle {
+    display: none;
 }
