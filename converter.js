@@ -3,13 +3,13 @@
 //https://levelup.gitconnected.com/draw-an-svg-to-canvas-and-download-it-as-image-in-javascript-f7f7713cf81f
 
 /* 
-ScopeMoving.svg
-ScopePistol.svg
-ScopeStatic.svg
-Shooting.svg
-TargetMoving.svg
-TargetPistol.svg
-TargetStatic.svg
+ScopeMoving
+ScopePistol
+ScopeStatic
+Shooting
+TargetMoving
+TargetPistol
+TargetStatic
 
 svgSMoving
 svgSPistol
@@ -48,13 +48,45 @@ let clonedsvgTStatic = svgTStatic.cloneNode(true);
 // true for deep clone(check what does it mean)
 
 let outerHTMLSP = clonedsvgSPistol.outerHTMLSP,
-blobSP = new Blob([outerHTML],
+blobSP = new Blob([outerHTMLSP],
     {type:'image/svg+xml;charset=utf-8'}); //ScopePistol
-/*let 
-    blobSS = new Blob([outerHTML],
+
+let outerHTMLSS = clonedsvgSStatic.outerHTMLSS,
+blobSS = new Blob([outerHTML],
     {type:'image/svg+xml;charset=utf-8'}); //ScopeStatic
-blobShooting = new Blob([outerHTML],
+
+let outerHTMLShooting = clonedsvgShooting.outerHTMLShooting, 
+blobShooting = new Blob([outerHTMLShooting],
     {type:'image/svg+xml;charset=utf-8'}); //Shooting
-blobTM = new Blob([outerHTML],
+
+let outerHTMLTMoving = clonedsvgTMoving.outerHTMLTMoving,
+blobTM = new Blob([outerHTMLTMoving],
     {type:'image/svg+xml;charset=utf-8'}); //TargetMoving
-*/
+
+let outerHTMLTPistol = clonedsvgTPistol.outerHTMLTPistol,
+blobTP = new Blob([outerHTMLTPistol], 
+    {type:'image/svg+xml;charset=utf-8'}); //TargetPistol
+
+let outerHTMLTStatic = clonedsvgTStatic.outerHTMLTStatic,
+blobTS = new Blob([outerHTMLTStatic],
+    {type:'image/svg+sml;charset=utf-8'}); //TargetStatic
+
+//creating urls from blobs
+let URLSP = window.URL || window.webkitURL || window;
+let blobURLSP = URLSP.createObjectURL(blobSP); //ScopePistol
+
+let URLSS = window.URL || window.webkitURL || window;
+let blobURLSS = URLSS.createObjectURL(blobSS); //ScopeStatic
+
+let URLS = window.URL || window.webkitURL || window;
+let blobURLSh = URLS.createObjectURL(blobURL); //Shooting
+
+let URLTM = window.URL || window.webkitURL || window;
+let blobURLTM =  URLTM.createObjectURL(blobTM); //TargetMoving
+
+let URLTP = window.URL || window.webkitURL || window;
+let blobURLTP = URLTP.createObjectURL(blobTP); //TargetPistol
+
+let URLTS = window.URL || window.webkitURL || window;
+let blobURLTS = URLTS.createObjectURL(blobURLTS); //TargetStatic
+
