@@ -6,16 +6,52 @@ var SCREENX = [];
 var POINTX;
 var SCREENY = [];
 var POINTY;
+var CURRENT_BULLET = 1;
+var SCORE_TABLE;
+var TOTAL_SCORE = 0;
+var lastMouseMove = 101;
+var first = 0;
+
+let interval = null;
 
 function main() {
     document.getElementById("scopeMoving").style.display = "inline"
     document.getElementById("targetMoving").style.display = "inline"
+    SCORE_TABLE = document.getElementById("scoreTable");
 
-    animate();setInterval(calcDelta, 20);
+    animate(); 
+    setInterval(calcDelta, 20);
+}
+
+function addScore(hit){
+
+    
+    if (CURRENT_BULLET > 10) {
+        console.log("no bullets left")
+        return
+    }
+    // Kun on ammuttu yli 5, siirrytään pistetaulukossa alemmalle riville, muussa tapauksessa pisteet kirjataan ylemmälle riville.
+
+    score = getScore();
+    if (CURRENT_BULLET > 5) { 
+        SCORE_TABLE.children[0].children[2].children[CURRENT_BULLET-6].innerHTML = score;
+    } else {
+        SCORE_TABLE.children[0].children[1].children[CURRENT_BULLET].innerHTML = score;
+    }
+    TOTAL_SCORE += score;
+
+    var bulletImg = document.createElement("img")
+    bulletImg.src = "bullet.svg"
+
+    SCORE_TABLE.children[0].children[1].children[6].innerHTML = TOTAL_SCORE;
+
+    document.getElementById("scoreTable").children[0].children[0].children[1].innerHTML = "<img src=\"bullet.svg\">" + `  ${10 - CURRENT_BULLET}` + "/10"
+    CURRENT_BULLET++;
 }
 
 function handleMouseMove(event) {
     var dot, eventDoc, doc, body, pageX, pageY;
+    //lastMouseMove = Date.now();  aikaraja millon heilunta alkaa, aiheuttaa teleporttailua #TODO
     
     event = event || window.event;
     if (event.pageX == null && event.clientX != null) {
@@ -32,10 +68,102 @@ function handleMouseMove(event) {
     }
 
     scope = document.getElementById("scope" + CURRENT);
-    scope.style.margin = event.pageY + "px 0% 0% " + event.pageX + "px";
+    //scope.style.margin = event.pageY + "px 0% 0% " + event.pageX + "px";
     POINTX = event.pageX;
     POINTY = event.pageY;
 }
+
+function getScore() {
+    var BB = document.getElementById("target" + CURRENT).getBoundingClientRect();
+    var sMoving = document.getElementById("scopeMoving").getBoundingClientRect();
+    var sNotMov = document.getElementById("scope" + CURRENT).getBoundingClientRect();
+    var middle = [BB.left + (BB.width / 2), BB.top + BB.height * 0.69523469387755102040816326530612];
+    var mmToPx = 310 / BB.width;
+
+    pistolScore = [11.5,    27.5,   43.5,   59.5,   75.5,   91.5,   107.5,  123.5,  139.5,  155.5];
+    staticScore = [0.5,     5.5,    10.5,   15.5,   20.5,   25.5,   30.5,   35.5,   40.5,   45.5];
+    movingScore = [5.5,     10.5,   15.5,   20.5,   25.5,   30.5,   35.5,   40.5,   45.5,   50.5];
+
+    //Not final before target is moving
+    if (CURRENT == "Moving") {
+        if (CURRENT_BULLET % 2 == 0) {
+            dist = Math.sqrt(Math.pow((POINTX + (-sMoving.width / 2) + (sMoving.width * 0.374998835) - middle[0]), 2) + Math.pow((POINTY - middle[1]), 2)) * mmToPx; //to right 0.374998835
+        } else {  
+            dist = Math.sqrt(Math.pow((POINTX + (-sMoving.width / 2) + (sMoving.width * 0.608331236) - middle[0]), 2) + Math.pow((POINTY - middle[1]), 2)) * mmToPx; //to left 0.608331236
+        }
+    } else {
+        dist = Math.sqrt(Math.pow((sNotMov.left + sNotMov.width / 2 - middle[0]),2) + Math.pow((sNotMov.top + sNotMov.height / 2 - middle[1]),2)) * mmToPx;
+    }
+
+    //console.log(middle);
+    //console.log(POINTX + " " + POINTY + " " + mmToPx + " " + dist);
+
+    switch (CURRENT) {
+        case "Pistol":
+            for (let i = 0; i < pistolScore.length; i++) {
+                if (dist - 2.25 <= pistolScore[i] / 2) {
+                    return 10 - i;
+                }
+            }
+            break;
+        case "Static":
+            for (let i = 0; i < staticScore.length; i++) {
+                if (dist - 2.25 <= staticScore[i] / 2) {
+                    return 10 - i;
+                }
+            }
+            break;
+        case "Moving":
+            for (let i = 0; i < movingScore.length; i++) {
+                if (dist - 2.25 <= movingScore[i] / 2) {
+                    return 10 - i;
+                }
+            }
+            break;
+        default:
+            //failure
+            break;
+    }
+    return 0;
+}
+
+function updateMouse (x, y) {
+    scope = document.getElementById("scope" + CURRENT);
+    var BB = document.getElementById("scope" + CURRENT).getBoundingClientRect();
+    var xScope = x - BB.width / 2;
+    var yScope = y - BB.height / 2;
+    scope.style.transform = `translate(` + xScope + `px, ` + yScope + `px)`;
+}
+
+doElsCollide = function(el1, el2) {
+    // Palauttaa boolean, jos divit päälekkäin https://stackoverflow.com/questions/9607252/how-to-detect-when-an-element-over-another-element-in-javascript
+    el1.offsetBottom = el1.offsetTop + el1.offsetHeight;
+    el1.offsetRight = el1.offsetLeft + el1.offsetWidth;
+    el2.offsetBottom = el2.offsetTop + el2.offsetHeight;
+    el2.offsetRight = el2.offsetLeft + el2.offsetWidth;
+    
+    return !((el1.offsetBottom < el2.offsetTop) ||
+             (el1.offsetTop > el2.offsetBottom) ||
+             (el1.offsetRight < el2.offsetLeft) ||
+             (el1.offsetLeft > el2.offsetRight))
+};
+
+function swayMouse (a) { 
+    if (lastMouseMove > 100 && CURRENT != "Moving") {
+        
+        const noiseX = (noise.simplex3(2, 0, a*0.0004) + 1) / 2;
+        const noiseY = (noise.simplex3(10, 0, a*0.0004) + 1) / 2;
+        const x = (POINTX + noiseX * 20);
+        const y = (POINTY + noiseY * 20);
+        updateMouse(x, y)          
+            
+        
+    }else{
+        updateMouse(POINTX, POINTY)
+    }
+    document.getElementById("reticle_coords").innerHTML = document.getElementById('scope'+CURRENT).style.transform +' - mouse X:'+POINTX+'-Y:'+POINTY
+    requestAnimationFrame(swayMouse);
+  }
 
 function calcDelta() {
     if (SCREENX.length < 6) {
@@ -48,16 +176,74 @@ function calcDelta() {
     SCREENX.pop();
     SCREENY.pop();
     DELTA = [SCREENX[0] - SCREENX[5],SCREENY[0] - SCREENY[5]]
-    document.getElementById("SX").innerHTML = DELTA[0];
-    document.getElementById("SY").innerHTML = DELTA[1];
 }
 
+/**
+ * Toggle the visibility of speed selector and it's label.
+ * True hides, false shows.
+ * 
+ * @param {boolean} hide 
+ */
+function toggleSpeedSelect(hide) {
+    const speedSelect = document.getElementById('movingSpeed');
+    const speedLabel = document.getElementById('movingSpeedLabel');
+    if (hide) {
+        speedSelect.classList.add('hidden-toggle');
+        speedLabel.classList.add('hidden-toggle');
+    }else {
+        speedSelect.classList.remove('hidden-toggle');
+        speedLabel.classList.remove('hidden-toggle');
+    }
+}
+
+/**
+ * Clears the interval, if exists.
+ */
+function intervalClear() {
+    if (interval) {
+        clearInterval(interval);
+    }
+}
+
+/**
+ * On change handler for the speed selector. Clears interval 
+ * and restarts animation.
+ */
+function onSpeedChange() {
+    intervalClear();
+    animate();
+}
+
+/**
+ * Move the target from side to side, speed depends on selected value 
+ * from MovingSpeed selector. Sets the interval.
+ */
 function animate() {
-    //window.requestAnimationFrame(animate);
+    const movingTarget = document.getElementById('targetMoving');
+    const speed = document.getElementById('movingSpeed').value;
+    const width = document.getElementById("frameMoving").width;
+    let currPos = 0;
+    let dir = 'R';
+    interval = setInterval(() => {
+        if (dir === 'L') {
+            currPos--;
+            movingTarget.style.left = `${currPos}px`;
+            if (currPos === 0) {
+                dir = 'R';
+            }
+        } else if (currPos < width && dir === 'R') {
+            currPos++;
+            movingTarget.style.left = `${currPos}px`;
+        }else {
+            dir = 'L';
+        }
+    }, speed);
 }
 
 function changePistol() {
     CURRENT = "Pistol";
+    resetScore();
+    toggleSpeedSelect(true);
     document.getElementById("scopePistol").style.display = "inline";
     document.getElementById("targetPistol").style.display = "inline";
 
@@ -70,6 +256,8 @@ function changePistol() {
 
 function changeStatic() {
     CURRENT = "Static";
+    resetScore();
+    toggleSpeedSelect(true);
     document.getElementById("scopeStatic").style.display = "inline";
     document.getElementById("targetStatic").style.display = "inline";
 
@@ -82,6 +270,10 @@ function changeStatic() {
 
 function changeMoving() {
     CURRENT = "Moving";
+    resetScore();
+    toggleSpeedSelect(false);
+    intervalClear();
+    animate();
     document.getElementById("scopeMoving").style.display = "inline";
     document.getElementById("targetMoving").style.display = "inline";
     document.getElementById("frameMoving").style.display = "inline";
@@ -91,3 +283,39 @@ function changeMoving() {
     document.getElementById("scopeStatic").style.display = "none";
     document.getElementById("targetStatic").style.display = "none";
 }
+
+function mouseHover(i) {
+    lastMouseMove = i;
+}
+
+function resetScore() {
+    CURRENT_BULLET = 1;
+    TOTAL_SCORE = 0;
+
+    for (let i = 0; i < 11; i++) {
+        if (i > 5) { 
+            SCORE_TABLE.children[0].children[2].children[i - 6].innerHTML = "&nbsp";
+        } else {
+            SCORE_TABLE.children[0].children[1].children[i].innerHTML = "&nbsp";
+        }
+    }
+    SCORE_TABLE.children[0].children[1].children[0].innerHTML = "Score";
+    SCORE_TABLE.children[0].children[1].children[6].innerHTML = "&nbsp";
+
+    document.getElementById("scoreTable").children[0].children[0].children[1].innerHTML = "<img src=\"bullet.svg\">" + `  ${10 - CURRENT_BULLET}` + "/10"
+}
+
+/*$(document).ready(function () {
+        $( "div.bottom" )
+        .mouseenter(function() {
+        console.log('enter')
+        lastMouseMove = 99;
+        })
+        .mouseleave(function() {
+        console.log('leave')
+        lastMouseMove = 101;
+        });
+
+});*/
+
+requestAnimationFrame(swayMouse);

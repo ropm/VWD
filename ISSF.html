@@ -5,28 +5,60 @@
         <title>ISSF shooting</title>
         <meta name='viewport' content='width=device-width, initial-scale=1'>
         <link rel="stylesheet" href="style.css">
+        <script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/127738/perlin.js'></script>
+        <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>  No longer needed-->
         <script src="code.js"></script>
-        <script>
-              document.onmousemove = handleMouseMove;
-        </script>
+        <script>document.onmousemove = handleMouseMove;</script>
     </head>
     <body onload="main()">
-        <div class="top">
+      <div class="top" onclick="addScore()" onmouseover="mouseHover(101)">
             <img src="TargetPistol.svg" style="display:none" class="target tStatic" id="targetPistol"/>
             <img src="TargetStatic.svg" style="display:none" class="target tStatic" id="targetStatic"/>
             <img src="TargetMoving.svg" style="display:none" class="target tMoving" id="targetMoving"/>
-            <img src="Shooting.svg"     class="base" id="frameMoving"/>
+            <img src="Shooting.svg"    style=display:inline class="base noMouse" id="frameMoving"/>
             <img src="scopePistol.svg" style="display:none" class="scope sStatic" id="scopePistol"/>
             <img src="scopeStatic.svg" style="display:none" class="scope sStatic" id="scopeStatic"/>
             <img src="scopeMoving.svg" style="display:none" class="scope sMoving" id="scopeMoving"/>
         </div>
-        <div class="bottom">
+        <div class="bottom" onmouseover="mouseHover(99)">
             <button onclick="changePistol()">Pistol</button>
             <button onclick="changeStatic()">Static</button>
             <button onclick="changeMoving()">Moving target</button>
-            <p id="SX">X</p>
-            <p id="SY">Y</p>
+            <label for="movingSpeed" id="movingSpeedLabel">Moving target speed:</label>
+            <select name="movingSpeed" id="movingSpeed" onchange="onSpeedChange()">
+              <option value="1">Fast</option>
+              <option value="6">Slow</option>
+            </select>
+            <!--<p id="SX">X</p>-->
+            <!--<p id="SY">Y</p>-->
+            <table id="scoreTable">
+                <tr>
+                  <th colspan="1" id="noBorder">Bullets</th>
+                  <th id="noBorder" class="blank_row" colspan="5"> <img id="bullet" src="Bullet.svg" alt="">10/10</th>
+                  <th>Total</th>
+                </tr>
+                <tr>
+                  <td rowspan="2">Score</td> 
+                  <td>&nbsp</td>
+                  <td>&nbsp</td>
+                  <td>&nbsp</td>
+                  <td>&nbsp</td>
+                  <td>&nbsp</td>
+                  <td rowspan="2">&nbsp</td>
+                </tr>
+                <tr>
+                  <td>&nbsp</td>
+                  <td>&nbsp</td>
+                  <td>&nbsp</td>
+                  <td>&nbsp</td>
+                  <td>&nbsp</td>
+                </tr>
+              </table>
+              <div>
+                <p id="reticle_coords"></p>
+              </div> 
             <canvas id="myCanvas"></canvas>
+            
         </div>
     </body>
 </html>

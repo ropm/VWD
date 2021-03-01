@@ -25,11 +25,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2.8284271"
-     inkscape:cx="629.05914"
-     inkscape:cy="428.64099"
+     inkscape:zoom="0.99999999"
+     inkscape:cx="599.68018"
+     inkscape:cy="448.30173"
      inkscape:document-units="mm"
-     inkscape:current-layer="g835"
+     inkscape:current-layer="g866"
      showgrid="false"
      inkscape:window-width="1920"
      inkscape:window-height="1017"
@@ -70,17 +70,18 @@
          sodipodi:insensitive="true" />
       <rect
          y="460.21869"
-         x="1571.7887"
+         x="1572.6962"
          height="170"
          width="170"
          id="rect848"
          style="opacity:1;fill:#f5ecc9;fill-opacity:1;stroke:none;stroke-width:0.12255803;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
          sodipodi:insensitive="true" />
       <g
-         transform="matrix(0.09326425,0,0,0.09326425,1833.8508,480.61515)"
+         transform="matrix(0.09326425,0,0,0.09326425,1834.7583,480.61515)"
          inkscape:label="Rings"
          id="g835"
-         style="stroke:#ffffff;stroke-width:0.93333334;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+         style="stroke:#ffffff;stroke-width:0.93333334;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         sodipodi:insensitive="true">
         <circle
            cy="692.69348"
            cx="-1898.4989"
@@ -158,19 +159,20 @@
       <text
          xml:space="preserve"
          style="font-style:normal;font-weight:normal;font-size:50.79999924px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-         x="1594.7438"
+         x="1595.6512"
          y="446.96588"
          id="text1779"><tspan
            sodipodi:role="line"
            id="tspan1777"
-           x="1594.7438"
+           x="1595.6512"
            y="446.96588"
            style="stroke-width:0.26458332">SUIS</tspan></text>
       <g
          id="g1131"
          inkscape:label="Numbers"
          style="display:inline"
-         sodipodi:insensitive="true">
+         sodipodi:insensitive="true"
+         transform="translate(0.90747245)">
         <g
            inkscape:label="NumberL"
            id="g936"

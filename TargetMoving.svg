@@ -25,18 +25,18 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.70710678"
-     inkscape:cx="455.95732"
-     inkscape:cy="590.11828"
+     inkscape:zoom="0.64"
+     inkscape:cx="654.36044"
+     inkscape:cy="427.69279"
      inkscape:document-units="mm"
      inkscape:current-layer="g866"
      showgrid="false"
      inkscape:window-width="1920"
      inkscape:window-height="1017"
-     inkscape:window-x="1912"
+     inkscape:window-x="3832"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
-     inkscape:snap-object-midpoints="false"
+     inkscape:snap-object-midpoints="true"
      inkscape:snap-intersection-paths="true" />
   <metadata
      id="metadata835">
@@ -46,7 +46,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -69,14 +69,14 @@
          sodipodi:insensitive="true" />
       <rect
          y="460.21869"
-         x="1571.7887"
+         x="1572.6962"
          height="170"
          width="170"
          id="rect848"
          style="opacity:1;fill:#f5ecc9;fill-opacity:1;stroke:none;stroke-width:0.12255803;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
          sodipodi:insensitive="true" />
       <g
-         transform="translate(-84.975948,-100.31843)"
+         transform="translate(-84.068448,-100.31843)"
          inkscape:label="Rings"
          id="g835">
         <circle
@@ -144,7 +144,7 @@
       <g
          id="g1775"
          inkscape:label="Numbers"
-         transform="translate(4.0925331,15.481597)">
+         transform="translate(5.0000327,15.481598)">
         <g
            sodipodi:insensitive="true"
            id="g1573"
@@ -597,12 +597,12 @@
       <text
          xml:space="preserve"
          style="font-style:normal;font-weight:normal;font-size:50.79999924px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-         x="1594.7438"
+         x="1595.6512"
          y="446.96588"
          id="text1779"><tspan
            sodipodi:role="line"
            id="tspan1777"
-           x="1594.7438"
+           x="1595.6512"
            y="446.96588"
            style="stroke-width:0.26458332">SUIS</tspan></text>
     </g>
