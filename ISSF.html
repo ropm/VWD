@@ -12,6 +12,9 @@
     </head>
     <body onload="main()">
       <div class="top" onclick="addScore()" onmouseover="mouseHover(101)">
+            <img src="PaperPistol.svg" style="display:none" id="paperPistol"/>
+            <img src="PaperStatic.svg" style="display:none" id="paperStatic"/>
+            <img src="PaperMoving.svg" style="display:none" id="paperMoving"/>
             <img src="TargetPistol.svg" style="display:none" class="target tStatic" id="targetPistol"/>
             <img src="TargetStatic.svg" style="display:none" class="target tStatic" id="targetStatic"/>
             <img src="TargetMoving.svg" style="display:none" class="target tMoving" id="targetMoving"/>
@@ -26,39 +29,38 @@
             <button onclick="changeMoving()">Moving target</button>
             <label for="movingSpeed" id="movingSpeedLabel">Moving target speed:</label>
             <select name="movingSpeed" id="movingSpeed" onchange="onSpeedChange()">
-              <option value="1">Fast</option>
-              <option value="6">Slow</option>
+              	<option value="1">Fast</option>
+              	<option value="6">Slow</option>
             </select>
             <!--<p id="SX">X</p>-->
             <!--<p id="SY">Y</p>-->
             <table id="scoreTable">
-                <tr>
-                  <th colspan="1" id="noBorder">Bullets</th>
-                  <th id="noBorder" class="blank_row" colspan="5"> <img id="bullet" src="Bullet.svg" alt="">10/10</th>
-                  <th>Total</th>
-                </tr>
-                <tr>
-                  <td rowspan="2">Score</td> 
-                  <td>&nbsp</td>
-                  <td>&nbsp</td>
-                  <td>&nbsp</td>
-                  <td>&nbsp</td>
-                  <td>&nbsp</td>
-                  <td rowspan="2">&nbsp</td>
-                </tr>
-                <tr>
-                  <td>&nbsp</td>
-                  <td>&nbsp</td>
-                  <td>&nbsp</td>
-                  <td>&nbsp</td>
-                  <td>&nbsp</td>
-                </tr>
-              </table>
-              <div>
-                <p id="reticle_coords"></p>
-              </div> 
+            	<tr>
+            	  	<th colspan="1" id="noBorder">Bullets</th>
+            	  	<th id="noBorder" class="blank_row" colspan="5"> <img id="bullet" src="Bullet.svg" alt="">10/10</th>
+            	  	<th>Total</th>
+            	</tr>
+            	<tr>
+            	  	<td rowspan="2">Score</td> 
+            	  	<td>&nbsp</td>
+            	  	<td>&nbsp</td>
+            	  	<td>&nbsp</td>
+            	  	<td>&nbsp</td>
+            	  	<td>&nbsp</td>
+            	  	<td rowspan="2">&nbsp</td>
+            	</tr>
+            	<tr>
+            	  	<td>&nbsp</td>
+            	  	<td>&nbsp</td>
+            	  	<td>&nbsp</td>
+            	  	<td>&nbsp</td>
+            	  	<td>&nbsp</td>
+            	</tr>
+            </table>
+            <div>
+              	<p id="reticle_coords"></p>
+            </div> 
             <canvas id="myCanvas"></canvas>
-            
         </div>
     </body>
 </html>

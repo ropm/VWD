@@ -21,6 +21,7 @@ canvas {
 
 .base {
     width: 100vmax;
+    pointer-events: none;
     position: absolute;
     top: 0;
     left: 0;
@@ -28,6 +29,7 @@ canvas {
 
 .target {
     position: fixed;
+    pointer-events: none;
 }
 
 .tMoving {

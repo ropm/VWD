@@ -21,6 +21,7 @@ function main() {
 
     animate(); 
     setInterval(calcDelta, 20);
+    drawShot(false);
 }
 
 function addScore(hit){
@@ -243,7 +244,10 @@ function animate() {
 function changePistol() {
     CURRENT = "Pistol";
     resetScore();
+    drawShot(false);
+    
     toggleSpeedSelect(true);
+
     document.getElementById("scopePistol").style.display = "inline";
     document.getElementById("targetPistol").style.display = "inline";
 
@@ -257,7 +261,10 @@ function changePistol() {
 function changeStatic() {
     CURRENT = "Static";
     resetScore();
+    drawShot(false);
+
     toggleSpeedSelect(true);
+
     document.getElementById("scopeStatic").style.display = "inline";
     document.getElementById("targetStatic").style.display = "inline";
 
@@ -271,9 +278,12 @@ function changeStatic() {
 function changeMoving() {
     CURRENT = "Moving";
     resetScore();
+    drawShot(false);
+
     toggleSpeedSelect(false);
     intervalClear();
     animate();
+
     document.getElementById("scopeMoving").style.display = "inline";
     document.getElementById("targetMoving").style.display = "inline";
     document.getElementById("frameMoving").style.display = "inline";
@@ -302,7 +312,7 @@ function resetScore() {
     SCORE_TABLE.children[0].children[1].children[0].innerHTML = "Score";
     SCORE_TABLE.children[0].children[1].children[6].innerHTML = "&nbsp";
 
-    document.getElementById("scoreTable").children[0].children[0].children[1].innerHTML = "<img src=\"bullet.svg\">" + `  ${10 - CURRENT_BULLET}` + "/10"
+    document.getElementById("scoreTable").children[0].children[0].children[1].innerHTML = "<img src=\"bullet.svg\">10/10"
 }
 
 /*$(document).ready(function () {
@@ -317,5 +327,17 @@ function resetScore() {
         });
 
 });*/
+
+function drawShot(shot) {
+    if (shot) {
+        //TODO
+    } else {
+        var canvas = document.getElementById("myCanvas");
+        canvas.width = 640;
+        canvas.height = 640;
+        var context = canvas.getContext('2d');
+        context.drawImage(document.getElementById("paper" + CURRENT), 0, 0); 
+    }
+}
 
 requestAnimationFrame(swayMouse);
