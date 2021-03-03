@@ -12,6 +12,7 @@ var SCORE_TABLE;
 var TOTAL_SCORE = 0;
 var lastMouseMove = 101;
 var first = 0;
+var shots = [];
 
 let interval = null;
 
@@ -75,6 +76,10 @@ function handleMouseMove(event) {
     POINTY = event.pageY;
 }
 
+function scopeX(a, b, c) {
+    return (a + (-b.width / 2) + (b.width * c));
+}
+
 function getScore() {
     var BB = document.getElementById("target" + CURRENT).getBoundingClientRect();
     var sMoving = document.getElementById("scopeMoving").getBoundingClientRect();
@@ -89,12 +94,22 @@ function getScore() {
     //Not final before target is moving
     if (CURRENT == "Moving") {
         if (CURRENT_BULLET % 2 == 0) {
-            dist = Math.sqrt(Math.pow((POINTX + (-sMoving.width / 2) + (sMoving.width * 0.374998835) - middle[0]), 2) + Math.pow((POINTY - middle[1]), 2)) * mmToPx; //to right 0.374998835
+            dist = Math.sqrt(Math.pow((scopeX(POINTX, sMoving, 0.374998835) - middle[0]), 2) + Math.pow((POINTY - middle[1]), 2)) * mmToPx; //to right 0.374998835
         } else {  
-            dist = Math.sqrt(Math.pow((POINTX + (-sMoving.width / 2) + (sMoving.width * 0.608331236) - middle[0]), 2) + Math.pow((POINTY - middle[1]), 2)) * mmToPx; //to left 0.608331236
+            dist = Math.sqrt(Math.pow((scopeX(POINTX, sMoving, 0.608331236) - middle[0]), 2) + Math.pow((POINTY - middle[1]), 2)) * mmToPx; //to left 0.608331236
         }
     } else {
         dist = Math.sqrt(Math.pow((sNotMov.left + sNotMov.width / 2 - middle[0]),2) + Math.pow((sNotMov.top + sNotMov.height / 2 - middle[1]),2)) * mmToPx;
+    }
+
+    if (CURRENT == "Moving") {
+        if (CURRENT_BULLET % 2 == 0) {
+            shots.push([scopeX(POINTX, sMoving, 0.374998835) - middle[0], POINTY - middle[1]]); //to right 0.374998835
+        } else {  
+            shots.push([scopeX(POINTX, sMoving, 0.608331236) - middle[0], POINTY - middle[1]]); //to left 0.608331236
+        }
+    } else {
+        shots.push([sNotMov.left + sNotMov.width / 2 - middle[0], POINTY - middle[1]]);
     }
 
     //console.log(middle);
@@ -247,6 +262,7 @@ function changePistol() {
     CURRENT = "Pistol";
     resetScore();
     drawShot(false);
+    shots = [];
     
     toggleSpeedSelect(true);
 
@@ -264,6 +280,7 @@ function changeStatic() {
     CURRENT = "Static";
     resetScore();
     drawShot(false);
+    shots = [];
 
     toggleSpeedSelect(true);
 
@@ -281,6 +298,7 @@ function changeMoving() {
     CURRENT = "Moving";
     resetScore();
     drawShot(false);
+    shots = [];
 
     toggleSpeedSelect(false);
     intervalClear();
