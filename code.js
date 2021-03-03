@@ -78,7 +78,7 @@ function handleMouseMove(event) {
 function getScore() {
     var BB = document.getElementById("target" + CURRENT).getBoundingClientRect();
     var sMoving = document.getElementById("scopeMoving").getBoundingClientRect();
-    var sNotMov = document.getElementById("scope" + CURRENT).getBoundingClientRect();
+    var sNotMov = document.getElementById("scope" + CURRENT).getBoundingClientRect(); //getBoundingClientRect tells x, y, right up, left, bottom, 
     var middle = [BB.left + (BB.width / 2), BB.top + BB.height * 0.69523469387755102040816326530612];
     var mmToPx = 310 / BB.width;
 
@@ -333,12 +333,19 @@ function resetScore() {
 function drawShot(shot) {
     if (shot) {
         //TODO
+        //Lauran koodia
+        var canvas = document.getElementById("myCanvas");
+        canvas.width = 640;
+        canvas.height = 640;
+        var context = canvas.getContext('2d');
+        context.arc(sNotMov.x, sNotMov.y, 2.25, 0 * Math.PI, 2 * Math.PI);
+        context.fillStyle('black');
     } else {
         var canvas = document.getElementById("myCanvas");
         canvas.width = 640;
         canvas.height = 640;
         var context = canvas.getContext('2d');
-        context.drawImage(document.getElementById("paper" + CURRENT), 0, 0); 
+        context.drawImage(document.getElementById("paper" + CURRENT), 0, 0);
     }
 }
 
