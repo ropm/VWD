@@ -1,5 +1,6 @@
 const SIZE = 1000;
-const HOUSES=[];
+const ANIMATE_SPEED = 16; // requestAnimationFrame updates 60 times/second, setInterval has min of 10 ms, so 1/60 * 1000
+const INNER_RECT_WIDTH_PERCENTAGE = 0.792115;
 var CURRENT = "Moving"
 var DELTA = [];
 var SCREENX = [];
@@ -217,28 +218,29 @@ function onSpeedChange() {
 
 /**
  * Move the target from side to side, speed depends on selected value 
- * from MovingSpeed selector. Sets the interval.
+ * from MovingSpeed selector. Sets the interval to static 16 ms.
  */
 function animate() {
     const movingTarget = document.getElementById('targetMoving');
     const speed = document.getElementById('movingSpeed').value;
-    const width = document.getElementById("frameMoving").width;
+    const width = window.innerWidth;
+	const movePx = (INNER_RECT_WIDTH_PERCENTAGE * width)/(speed*60);
     let currPos = 0;
     let dir = 'R';
     interval = setInterval(() => {
         if (dir === 'L') {
-            currPos--;
+			currPos = currPos - movePx;
             movingTarget.style.left = `${currPos}px`;
-            if (currPos === 0) {
+            if (currPos < 0) {
                 dir = 'R';
             }
         } else if (currPos < width && dir === 'R') {
-            currPos++;
+			currPos = currPos + movePx;
             movingTarget.style.left = `${currPos}px`;
         }else {
             dir = 'L';
         }
-    }, speed);
+    }, ANIMATE_SPEED);
 }
 
 function changePistol() {
