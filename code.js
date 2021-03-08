@@ -356,8 +356,9 @@ function drawShot(shot) {
         canvas.width = 640;
         canvas.height = 640;
         var context = canvas.getContext('2d');
-        context.arc(sNotMov.x, sNotMov.y, 2.25, 0 * Math.PI, 2 * Math.PI);
+        context.arc(sNotMov.x, sNotMov.y, 8.49, 0 * Math.PI, 2 * Math.PI); //8.49 portion gets bigger 
         context.fillStyle('black');
+        
     } else {
         var canvas = document.getElementById("myCanvas");
         canvas.width = 640;
