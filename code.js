@@ -348,17 +348,30 @@ function resetScore() {
 
 });*/
 
+/**
+ * This is where paper is modified to resize into canvas.
+ * Canvas size is 640 * 640 and original paper is about 240 * 240
+ * (x and y values between -145 to 145). 
+ * 
+ * @param {*} shot shows on a paper where shots are located if
+ * it hits on paper
+ */
+
 function drawShot(shot) {
     if (shot) {
         //TODO
         //Lauran koodia
+        var resize = 2.236896551724138;
         var canvas = document.getElementById("myCanvas");
         canvas.width = 640;
         canvas.height = 640;
         var context = canvas.getContext('2d');
-        context.arc(sNotMov.x, sNotMov.y, 8.49, 0 * Math.PI, 2 * Math.PI); //8.49 portion gets bigger 
+        //OG
+        //context.arc(sNotMov.x, sNotMov.y, 2.25, 0 * Math.PI, 2 * Math.PI);
+        context.arc((sNotMov.x + 145) * resize, (sNotMov.y + 145) * resize,
+        8.49, 0 * Math.PI, 2 * Math.PI); //8.49 portion gets bigger
         context.fillStyle('black');
-        
+                
     } else {
         var canvas = document.getElementById("myCanvas");
         canvas.width = 640;
