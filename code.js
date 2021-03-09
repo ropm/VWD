@@ -94,9 +94,9 @@ function getScore() {
     //Not final before target is moving
     if (CURRENT == "Moving") {
         if (CURRENT_BULLET % 2 == 0) {
-            dist = Math.sqrt(Math.pow((scopeX(POINTX, sMoving, 0.374998835) - middle[0]), 2) + Math.pow((POINTY - middle[1]), 2)) * mmToPx; //to right 0.374998835
+            dist = Math.sqrt(Math.pow((POINTX + (-sMoving.width / 2) + (sMoving.width * 0.374998835) - middle[0]), 2) + Math.pow((POINTY - middle[1]), 2)) * mmToPx; //to right 0.374998835
         } else {  
-            dist = Math.sqrt(Math.pow((scopeX(POINTX, sMoving, 0.608331236) - middle[0]), 2) + Math.pow((POINTY - middle[1]), 2)) * mmToPx; //to left 0.608331236
+            dist = Math.sqrt(Math.pow((POINTX + (-sMoving.width / 2) + (sMoving.width * 0.608331236) - middle[0]), 2) + Math.pow((POINTY - middle[1]), 2)) * mmToPx; //to left 0.608331236
         }
     } else {
         dist = Math.sqrt(Math.pow((sNotMov.left + sNotMov.width / 2 - middle[0]),2) + Math.pow((sNotMov.top + sNotMov.height / 2 - middle[1]),2)) * mmToPx;
@@ -104,16 +104,19 @@ function getScore() {
 
     if (CURRENT == "Moving") {
         if (CURRENT_BULLET % 2 == 0) {
-            shots.push([scopeX(POINTX, sMoving, 0.374998835) - middle[0], POINTY - middle[1]]); //to right 0.374998835
+            shots.push([POINTX + (-sMoving.width / 2) + (sMoving.width * 0.374998835) - middle[0], POINTY - middle[1]]); //to right 0.374998835
         } else {  
-            shots.push([scopeX(POINTX, sMoving, 0.608331236) - middle[0], POINTY - middle[1]]); //to left 0.608331236
+            shots.push([POINTX + (-sMoving.width / 2) + (sMoving.width * 0.608331236) - middle[0], POINTY - middle[1]]); //to left 0.608331236
         }
     } else {
-        shots.push([sNotMov.left + sNotMov.width / 2 - middle[0], POINTY - middle[1]]);
+        shots.push([sNotMov.left + sNotMov.width / 2 - middle[0], sNotMov.top + sNotMov.height / 2 - middle[1]]);
     }
 
     //console.log(middle);
     //console.log(POINTX + " " + POINTY + " " + mmToPx + " " + dist);
+    drawShot(true);
+    
+    console.log(dist);
 
     switch (CURRENT) {
         case "Pistol":
@@ -361,16 +364,25 @@ function drawShot(shot) {
     if (shot) {
         //TODO
         //Lauran koodia
-        var resize = 2.236896551724138;
+        //var resize = 2.236896551724138;
+        var BB = document.getElementById("target" + CURRENT).getBoundingClientRect();
+        var resize = 320 / ((BB.width * 0.548387097) / 2);
         var canvas = document.getElementById("myCanvas");
         canvas.width = 640;
         canvas.height = 640;
         var context = canvas.getContext('2d');
+        context.drawImage(document.getElementById("paper" + CURRENT), 0, 0);
+        context.fillStyle = "red";
+        for (let i = 0; i < shots.length; i++) {
+            context.beginPath();
+            context.arc((shots[shots.length - i - 1][0] + ((BB.width * 0.548387097) / 2)) * resize, (shots[shots.length - i - 1][1] + ((BB.width * 0.548387097) / 2)) * resize, 8.49, 0, 2 * Math.PI);
+            context.fill();
+        }
         //OG
         //context.arc(sNotMov.x, sNotMov.y, 2.25, 0 * Math.PI, 2 * Math.PI);
-        context.arc((sNotMov.x + 145) * resize, (sNotMov.y + 145) * resize,
-        8.49, 0 * Math.PI, 2 * Math.PI); //8.49 portion gets bigger
-        context.fillStyle('black');
+        //context.arc((sNotMov.x + 145) * resize, (sNotMov.y + 145) * resize,
+        //8.49, 0 * Math.PI, 2 * Math.PI); //8.49 portion gets bigger
+        //context.fillStyle('black');
                 
     } else {
         var canvas = document.getElementById("myCanvas");
