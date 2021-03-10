@@ -22,10 +22,16 @@ let interval = null;
 setInterval(setSway, 10);
 setInterval(setTime, 1000);
 
+/**
+ * How long does it take shoot all bullets
+ */
 function setTime() {
   ++LAST_SHOT;
 }
 
+/**
+ * After shooting how much sight sways 
+ */
 function setSway(){
     if (SWAYY > -300){
         --SWAYY;
@@ -53,6 +59,11 @@ function main() {
     drawShot(false);
 }
 
+/**
+ * Adds scores to the Score table
+ * @param {*} hit 
+ * @returns bullet's score 
+ */
 function addScore(hit){
     // nollataan tieto viimeisimmästä laukauksesta
     LAST_SHOT = 0
@@ -108,6 +119,10 @@ function addScore(hit){
     }
 }
 
+/**
+ * This function makes sight/mouse to wiggle
+ * @param {*} event makes wiggleling to
+ */
 function handleMouseMove(event) {
     var dot, eventDoc, doc, body, pageX, pageY;
     
@@ -132,10 +147,18 @@ function handleMouseMove(event) {
     POINTY = event.pageY;
 }
 
-function scopeX(a, b, c) {
-    return (a + (-b.width / 2) + (b.width * c));
-}
+// function scopeX(a, b, c) {
+//     return (a + (-b.width / 2) + (b.width * c));
+// }
+//ctrl + k + c
+/* shift + alt + a
+visual studio code keyboard short cuts*/
 
+/**
+* If bullet hits scorerings, it returns its value.
+* Otherwise returns 0
+* @returns score
+*/
 function getScore() {
     var BB = document.getElementById("target" + CURRENT).getBoundingClientRect();
     var sMoving = document.getElementById("scopeMoving").getBoundingClientRect();
@@ -203,6 +226,11 @@ function getScore() {
     return 0;
 }
 
+/**
+ * Mouse's coordinations and changes mouse to scope
+ * @param {*} x Mouse's x value
+ * @param {*} y Mouse's y value
+ */
 function updateMouse (x, y) {
     scope = document.getElementById("scope" + CURRENT);
     var BB = document.getElementById("scope" + CURRENT).getBoundingClientRect();
@@ -211,6 +239,11 @@ function updateMouse (x, y) {
     scope.style.transform = `translate(` + xScope + `px, ` + yScope + `px)`;
 }
 
+/**
+ * Detects other elements on top of each other.
+ * This helps them to be partly on top of each other
+ * Returns boolean if they are on top of each other.
+ */
 doElsCollide = function(el1, el2) {
     // Palauttaa boolean, jos divit päälekkäin https://stackoverflow.com/questions/9607252/how-to-detect-when-an-element-over-another-element-in-javascript
     el1.offsetBottom = el1.offsetTop + el1.offsetHeight;
@@ -224,6 +257,11 @@ doElsCollide = function(el1, el2) {
              (el1.offsetLeft > el2.offsetRight))
 };
 
+/**
+ * Makes mouse to sway when its on the same location too long and
+ * makes sight to feel more natural. 
+ * @param {*} a mouse's x and y coordinates 
+ */
 function swayMouse (a) { 
     if (CURRENT != "Moving" && SWAY_BOOL == true) {
         
@@ -241,6 +279,11 @@ function swayMouse (a) {
     requestAnimationFrame(swayMouse);
   }
 
+/**
+ * Calculates target's movements. It makes sure it
+ * moves on a certain area.
+ * @returns interval 
+ */
 function calcDelta() {
     if (SCREENX.length < 6) {
         SCREENX.push(POINTX);
@@ -273,7 +316,7 @@ function toggleSpeedSelect(hide) {
 }
 
 /**
- * Clears the interval, if exists.
+ * Clears the interval, if it exists.
  */
 function intervalClear() {
     if (interval) {
@@ -317,6 +360,9 @@ function animate() {
     }, ANIMATE_SPEED);
 }
 
+/**
+ * Changes sight style to scope pistol and target pistol
+ */
 function changePistol() {
     CURRENT = "Pistol";
     resetScore();
@@ -335,6 +381,9 @@ function changePistol() {
     document.getElementById("frameMoving").style.display = "none";
 }
 
+/**
+ * Changes shooting style into scope without moving target
+ */
 function changeStatic() {
     CURRENT = "Static";
     resetScore();
@@ -353,6 +402,9 @@ function changeStatic() {
     document.getElementById("frameMoving").style.display = "none";
 }
 
+/**
+ * Changes to moving targets with scope and target
+ */
 function changeMoving() {
     CURRENT = "Moving";
     resetScore();
@@ -384,6 +436,10 @@ function mouseHover(sway_boolean) {
     
 }
 
+/**
+ * Resets score when all bullets have shot or when
+ * shooting style is changed. 
+ */
 function resetScore() {
     CURRENT_BULLET = 1;
     TOTAL_SCORE = 0;
@@ -439,13 +495,11 @@ function resetScore() {
  * (x and y values between -145 to 145). 
  * 
  * @param {*} shot shows on a paper where shots are located if
- * it hits on paper
+ * bullet goes through the paper
  */
-
 function drawShot(shot) {
     if (shot) {
         //TODO
-        //Lauran koodia
         //var resize = 2.236896551724138;
         var BB = document.getElementById("target" + CURRENT).getBoundingClientRect();
         var resize = 320 / ((BB.width * 0.548387097) / 2);
