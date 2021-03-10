@@ -11,7 +11,7 @@
         <script>document.onmousemove = handleMouseMove;</script>
     </head>
     <body onload="main()">
-      <div class="top" onclick="addScore()" onmouseover="mouseHover(101)">
+      <div class="top" onclick="addScore()" onmouseover="mouseHover(true)">
             <img src="PaperPistol.svg" style="display:none" id="paperPistol"/>
             <img src="PaperStatic.svg" style="display:none" id="paperStatic"/>
             <img src="PaperMoving.svg" style="display:none" id="paperMoving"/>
@@ -23,7 +23,7 @@
             <img src="scopeStatic.svg" style="display:none" class="scope sStatic" id="scopeStatic"/>
             <img src="scopeMoving.svg" style="display:none" class="scope sMoving" id="scopeMoving"/>
         </div>
-        <div class="bottom" onmouseover="mouseHover(99)">
+        <div class="bottom" onmouseover="mouseHover(false)">
             <button onclick="changePistol()">Pistol</button>
             <button onclick="changeStatic()">Static</button>
             <button onclick="changeMoving()">Moving target</button>
