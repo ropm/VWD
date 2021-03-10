@@ -7,14 +7,33 @@ var SCREENX = [];
 var POINTX;
 var SCREENY = [];
 var POINTY;
+var SWAYY = -300;  // how much sway on y-axle
+var SWAYX = -300; // how much sway on x-axle
 var CURRENT_BULLET = 1;
 var SCORE_TABLE;
 var TOTAL_SCORE = 0;
-var lastMouseMove = 101;
-var first = 0;
+var LAST_SHOT = 10;
+var SWAY_BOOL
+//var first = 0;
 var shots = [];
 
+
 let interval = null;
+setInterval(setSway, 10);
+setInterval(setTime, 1000);
+
+function setTime() {
+  ++LAST_SHOT;
+}
+
+function setSway(){
+    if (SWAYY > -300){
+        --SWAYY;
+    }
+    if (SWAYX > -300){
+        --SWAYX;
+    }
+}
 
 function main() {
     document.getElementById("scopeMoving").style.display = "inline"
@@ -35,7 +54,13 @@ function main() {
 }
 
 function addScore(hit){
+    // nollataan tieto viimeisimmästä laukauksesta
+    LAST_SHOT = 0
+    SWAYY = Math.floor(Math.random() * 1800) + 1000;
+    //SWAYY = 2000
 
+    SWAYX = (Math.random() < 0.5 ? -1 : 1)*Math.floor(Math.random() * 100) + 1;
+    //SWAYX = 500
     
     if (CURRENT_BULLET > 10) {
         console.log("no bullets left")
@@ -85,7 +110,6 @@ function addScore(hit){
 
 function handleMouseMove(event) {
     var dot, eventDoc, doc, body, pageX, pageY;
-    //lastMouseMove = Date.now();  aikaraja millon heilunta alkaa, aiheuttaa teleporttailua #TODO
     
     event = event || window.event;
     if (event.pageX == null && event.clientX != null) {
@@ -102,6 +126,7 @@ function handleMouseMove(event) {
     }
 
     scope = document.getElementById("scope" + CURRENT);
+
     //scope.style.margin = event.pageY + "px 0% 0% " + event.pageX + "px";
     POINTX = event.pageX;
     POINTY = event.pageY;
@@ -200,19 +225,19 @@ doElsCollide = function(el1, el2) {
 };
 
 function swayMouse (a) { 
-    if (lastMouseMove > 100 && CURRENT != "Moving") {
+    if (CURRENT != "Moving" && SWAY_BOOL == true) {
         
         const noiseX = (noise.simplex3(2, 0, a*0.0004) + 1) / 2;
-        const noiseY = (noise.simplex3(10, 0, a*0.0004) + 1) / 2;
-        const x = (POINTX + noiseX * 20);
-        const y = (POINTY + noiseY * 20);
+        const noiseY = (noise.simplex3(20, 0, a*0.0004) + 1) / 2;
+        const x = (POINTX + noiseX * -(SWAYX/10));
+        const y = (POINTY + noiseY * -(SWAYY/10));
         updateMouse(x, y)          
             
         
     }else{
         updateMouse(POINTX, POINTY)
     }
-    document.getElementById("reticle_coords").innerHTML = document.getElementById('scope'+CURRENT).style.transform +' - mouse X:'+POINTX+'-Y:'+POINTY
+    document.getElementById("reticle_coords").innerHTML = document.getElementById('scope'+CURRENT).style.transform +' - mouse X:'+SWAYX+'-Y:'+SWAYY +'--'+LAST_SHOT
     requestAnimationFrame(swayMouse);
   }
 
@@ -348,8 +373,15 @@ function changeMoving() {
     document.getElementById("targetStatic").style.display = "none";
 }
 
-function mouseHover(i) {
-    lastMouseMove = i;
+function mouseHover(sway_boolean) {
+    // mitä tehdään kun hiiri bottomin päällä
+    SWAY_BOOL = sway_boolean;
+    if(sway_boolean){
+        document.getElementById("scope" + CURRENT).style.display = "inline";
+    }else{
+        document.getElementById("scope" + CURRENT).style.display = "none";
+    }
+    
 }
 
 function resetScore() {
