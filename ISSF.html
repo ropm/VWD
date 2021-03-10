@@ -11,6 +11,15 @@
         <script>document.onmousemove = handleMouseMove;</script>
     </head>
     <body onload="main()">
+	     <audio id="gunshot">
+            <source src="https://www.soundjay.com/mechanical/sounds/gun-gunshot-02.mp3" type="audio/mpeg">
+        </audio>
+        <audio id="shell">
+            <source src="https://www.soundjay.com/mechanical/sounds/empty-bullet-shell-fall-01.mp3" type="audio/mpeg">
+        </audio>
+        <audio id="gun_empty">
+            <source src="https://www.soundjay.com/mechanical/sounds/gun-trigger-click-01.mp3" type="audio/mpeg">
+        </audio>
       <div class="top" onclick="addScore()" onmouseover="mouseHover(true)">
             <img src="PaperPistol.svg" style="display:none" id="paperPistol"/>
             <img src="PaperStatic.svg" style="display:none" id="paperStatic"/>

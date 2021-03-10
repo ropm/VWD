@@ -75,6 +75,7 @@ function addScore(hit){
     
     if (CURRENT_BULLET > 10) {
         console.log("no bullets left")
+		play_audio("gun_empty")
         return
     }
     // Kun on ammuttu yli 5, siirrytään pistetaulukossa alemmalle riville, muussa tapauksessa pisteet kirjataan ylemmälle riville.
@@ -93,7 +94,9 @@ function addScore(hit){
     SCORE_TABLE.children[0].children[1].children[6].innerHTML = TOTAL_SCORE;
 
     document.getElementById("scoreTable").children[0].children[0].children[1].innerHTML = "<img src=\"bullet.svg\">" + `  ${10 - CURRENT_BULLET}` + "/10"
-    CURRENT_BULLET++;
+    
+	play_audio("gunshot");play_audio("shell");
+	CURRENT_BULLET++;
 
     if (CURRENT_BULLET > 10) {
         console.log(localStorage.getItem("movingScore"))
@@ -118,6 +121,12 @@ function addScore(hit){
         }
     }
 }
+
+function play_audio(src_id) {
+    document.getElementById(src_id).currentTime = 0;
+    document.getElementById(src_id).play();
+};
+
 
 /**
  * This function makes sight/mouse to wiggle
