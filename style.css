@@ -8,6 +8,7 @@ body {
 button {
     bottom: 10px;
     margin-left: 1em;
+    
 }
 
 canvas {
@@ -69,6 +70,8 @@ canvas {
     width: 100vw;
     left: 0;
     right: 0;
+    padding: 1%;
+
 }
 
 /* Pisteentaulukko */
@@ -108,3 +111,4 @@ td {
 .hidden-toggle {
     display: none;
 }
+

@@ -19,7 +19,15 @@ let interval = null;
 function main() {
     document.getElementById("scopeMoving").style.display = "inline"
     document.getElementById("targetMoving").style.display = "inline"
+
     SCORE_TABLE = document.getElementById("scoreTable");
+    SCORE_TABLE.children[0].children[1].children[6].innerHTML = TOTAL_SCORE;
+
+    if (localStorage.getItem("movingScore") != null) {
+        SCORE_TABLE.children[0].children[1].children[7].innerHTML = localStorage.getItem("movingScore");
+    } else {
+        SCORE_TABLE.children[0].children[1].children[7].innerHTML = 0;
+    }
 
     animate(); 
     setInterval(calcDelta, 20);
@@ -50,6 +58,29 @@ function addScore(hit){
 
     document.getElementById("scoreTable").children[0].children[0].children[1].innerHTML = "<img src=\"bullet.svg\">" + `  ${10 - CURRENT_BULLET}` + "/10"
     CURRENT_BULLET++;
+
+    if (CURRENT_BULLET > 10) {
+        console.log(localStorage.getItem("movingScore"))
+        if (CURRENT == "Moving") {
+            console.log("moving", localStorage.getItem(parseInt("movingScore")))
+            if (localStorage.getItem(parseInt("movingScore")) < TOTAL_SCORE || localStorage.getItem(parseInt("movingScore") != null)) {
+                localStorage.setItem("movingScore", TOTAL_SCORE);
+                SCORE_TABLE.children[0].children[1].children[7].innerHTML = localStorage.getItem("movingScore");
+            } 
+        } else if (CURRENT == "Pistol") {
+            console.log("pistol")
+            if (localStorage.getItem(parseInt("pistolScore")) < TOTAL_SCORE) {
+                localStorage.setItem("pistolScore", TOTAL_SCORE);
+                SCORE_TABLE.children[0].children[1].children[7].innerHTML = localStorage.getItem("pistolScore");
+            } 
+        } else if (CURRENT == "Static") {
+            console.log("static")
+            if (localStorage.getItem(parseInt("staticScore")) < TOTAL_SCORE) {
+                localStorage.setItem("staticScore", TOTAL_SCORE);
+                SCORE_TABLE.children[0].children[1].children[7].innerHTML = localStorage.getItem("staticScore");
+            } 
+        }
+    }
 }
 
 function handleMouseMove(event) {
@@ -333,8 +364,27 @@ function resetScore() {
         }
     }
     SCORE_TABLE.children[0].children[1].children[0].innerHTML = "Score";
-    SCORE_TABLE.children[0].children[1].children[6].innerHTML = "&nbsp";
+    SCORE_TABLE.children[0].children[1].children[6].innerHTML = TOTAL_SCORE;
 
+    if (CURRENT == "Moving") {
+        if (localStorage.getItem("movingScore") != null) {
+            SCORE_TABLE.children[0].children[1].children[7].innerHTML = localStorage.getItem("movingScore");
+        } else {
+            SCORE_TABLE.children[0].children[1].children[7].innerHTML = 0;
+        }
+    } else if (CURRENT == "Pistol") {
+        if (localStorage.getItem("pistolScore") != null) {
+            SCORE_TABLE.children[0].children[1].children[7].innerHTML = localStorage.getItem("pistolScore");
+        } else {
+            SCORE_TABLE.children[0].children[1].children[7].innerHTML = 0;
+        }
+    } else if (CURRENT == "Static") {
+        if (localStorage.getItem("staticScore") != null) {
+            SCORE_TABLE.children[0].children[1].children[7].innerHTML = localStorage.getItem("staticScore");
+        }  else {
+            SCORE_TABLE.children[0].children[1].children[7].innerHTML = 0;
+        }  
+    } 
     document.getElementById("scoreTable").children[0].children[0].children[1].innerHTML = "<img src=\"bullet.svg\">10/10"
 }
 
