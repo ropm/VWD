@@ -21,6 +21,7 @@ canvas {
 
 .base {
     width: 100vmax;
+    pointer-events: none;
     position: absolute;
     top: 0;
     left: 0;
@@ -28,6 +29,7 @@ canvas {
 
 .target {
     position: fixed;
+    pointer-events: none;
 }
 
 .tMoving {
@@ -67,6 +69,7 @@ canvas {
     width: 100vw;
     left: 0;
     right: 0;
+    padding: 1%;
 }
 
 /* Pisteentaulukko */
@@ -105,4 +108,20 @@ td {
 
 .hidden-toggle {
     display: none;
+}
+
+#mainMenu {
+    text-align: center;
+    color: #f8f8f8;
+}
+
+.issfLogo {
+    width: 100px;
+    height: auto;
+}
+
+.issfLogo:hover {
+    width: 103px;
+    height: auto;
+    cursor: pointer;
 }

@@ -11,7 +11,29 @@
         <script>document.onmousemove = handleMouseMove;</script>
     </head>
     <body onload="main()">
-      <div class="top" onclick="addScore()" onmouseover="mouseHover(101)">
+	     <audio id="gunshot">
+            <source src="https://www.soundjay.com/mechanical/sounds/gun-gunshot-02.mp3" type="audio/mpeg">
+        </audio>
+        <audio id="shell">
+            <source src="https://www.soundjay.com/mechanical/sounds/empty-bullet-shell-fall-01.mp3" type="audio/mpeg">
+        </audio>
+        <audio id="gun_empty">
+            <source src="https://www.soundjay.com/mechanical/sounds/gun-trigger-click-01.mp3" type="audio/mpeg">
+        </audio>
+        <div id="mainMenu">
+            <h1>ISSF shooting simulator</h1>
+            <img class="issfLogo" src="issf_logo.png" onclick="toggleMenu(true)"/>
+            <p>Start playing!</p>
+            <br>
+            <h2>Your highscores</h2>
+            <p id="movingTargTxt"></p>
+            <p id="staticTargTxt"></p>
+            <p id="pistolTargTxt"></p>
+        </div>
+      <div id="topDiv" class="top hidden-toggle" onclick="addScore()" onmouseover="mouseHover(true)">
+            <img src="PaperPistol.svg" style="display:none" id="paperPistol"/>
+            <img src="PaperStatic.svg" style="display:none" id="paperStatic"/>
+            <img src="PaperMoving.svg" style="display:none" id="paperMoving"/>
             <img src="TargetPistol.svg" style="display:none" class="target tStatic" id="targetPistol"/>
             <img src="TargetStatic.svg" style="display:none" class="target tStatic" id="targetStatic"/>
             <img src="TargetMoving.svg" style="display:none" class="target tMoving" id="targetMoving"/>
@@ -20,45 +42,49 @@
             <img src="scopeStatic.svg" style="display:none" class="scope sStatic" id="scopeStatic"/>
             <img src="scopeMoving.svg" style="display:none" class="scope sMoving" id="scopeMoving"/>
         </div>
-        <div class="bottom" onmouseover="mouseHover(99)">
+        <div id="bottomDiv" class="bottom hidden-toggle" onmouseover="mouseHover(false)">
+            <button onclick="toggleMenu(false)">Back to menu</button>
             <button onclick="changePistol()">Pistol</button>
             <button onclick="changeStatic()">Static</button>
             <button onclick="changeMoving()">Moving target</button>
             <label for="movingSpeed" id="movingSpeedLabel">Moving target speed:</label>
             <select name="movingSpeed" id="movingSpeed" onchange="onSpeedChange()">
-              <option value="1">Fast</option>
-              <option value="6">Slow</option>
+              	<option value="2.5">Fast</option>
+              	<option value="5">Slow</option>
             </select>
             <!--<p id="SX">X</p>-->
             <!--<p id="SY">Y</p>-->
-            <table id="scoreTable">
-                <tr>
-                  <th colspan="1" id="noBorder">Bullets</th>
-                  <th id="noBorder" class="blank_row" colspan="5"> <img id="bullet" src="Bullet.svg" alt="">10/10</th>
-                  <th>Total</th>
+            <table style="float: inline-start;" id="scoreTable">
+            	<tr>
+            	  	<th colspan="1" id="noBorder">Bullets</th>
+            	  	<th id="noBorder" class="blank_row" colspan="5"> <img id="bullet" src="Bullet.svg" alt="">10/10</th>
+                    <th>Total</th>
+                    <th style="font-size: 14px; padding: 1%;" colspan="1">Personal best </th>
+            	</tr>
+            	<tr>
+            	  	<td rowspan="2">Score</td> 
+            	  	<td>&nbsp</td>
+            	  	<td>&nbsp</td>
+            	  	<td>&nbsp</td>
+            	  	<td>&nbsp</td>
+            	  	<td>&nbsp</td>
+                    <td rowspan="2">&nbsp</td>
+                    <td rowspan="2">&nbsp</td>
+
+            	</tr>
+            	<tr>
+            	  	<td>&nbsp</td>
+            	  	<td>&nbsp</td>
+            	  	<td>&nbsp</td>
+            	  	<td>&nbsp</td>
+            	  	<td>&nbsp</td>
                 </tr>
-                <tr>
-                  <td rowspan="2">Score</td> 
-                  <td>&nbsp</td>
-                  <td>&nbsp</td>
-                  <td>&nbsp</td>
-                  <td>&nbsp</td>
-                  <td>&nbsp</td>
-                  <td rowspan="2">&nbsp</td>
-                </tr>
-                <tr>
-                  <td>&nbsp</td>
-                  <td>&nbsp</td>
-                  <td>&nbsp</td>
-                  <td>&nbsp</td>
-                  <td>&nbsp</td>
-                </tr>
-              </table>
-              <div>
-                <p id="reticle_coords"></p>
-              </div> 
+
+            </table>
+            <div>
+              	<p id="reticle_coords"></p>
+            </div> 
             <canvas id="myCanvas"></canvas>
-            
         </div>
     </body>
 </html>
