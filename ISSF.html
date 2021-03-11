@@ -20,7 +20,17 @@
         <audio id="gun_empty">
             <source src="https://www.soundjay.com/mechanical/sounds/gun-trigger-click-01.mp3" type="audio/mpeg">
         </audio>
-      <div class="top" onclick="addScore()" onmouseover="mouseHover(true)">
+        <div id="mainMenu">
+            <h1>ISSF shooting simulator</h1>
+            <img class="issfLogo" src="issf_logo.png" onclick="toggleMenu(true)"/>
+            <p>Start playing!</p>
+            <br>
+            <h2>Your highscores</h2>
+            <p id="movingTargTxt"></p>
+            <p id="staticTargTxt"></p>
+            <p id="pistolTargTxt"></p>
+        </div>
+      <div id="topDiv" class="top hidden-toggle" onclick="addScore()" onmouseover="mouseHover(true)">
             <img src="PaperPistol.svg" style="display:none" id="paperPistol"/>
             <img src="PaperStatic.svg" style="display:none" id="paperStatic"/>
             <img src="PaperMoving.svg" style="display:none" id="paperMoving"/>
@@ -32,7 +42,8 @@
             <img src="scopeStatic.svg" style="display:none" class="scope sStatic" id="scopeStatic"/>
             <img src="scopeMoving.svg" style="display:none" class="scope sMoving" id="scopeMoving"/>
         </div>
-        <div class="bottom" onmouseover="mouseHover(false)">
+        <div id="bottomDiv" class="bottom hidden-toggle" onmouseover="mouseHover(false)">
+            <button onclick="toggleMenu(false)">Back to menu</button>
             <button onclick="changePistol()">Pistol</button>
             <button onclick="changeStatic()">Static</button>
             <button onclick="changeMoving()">Moving target</button>

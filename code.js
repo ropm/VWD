@@ -41,9 +41,20 @@ function setSway(){
     }
 }
 
+/**
+ * Gets and sets highscores from localstorage to the main menu
+ */
+function getHighscores() {
+    document.getElementById("movingTargTxt").innerText = `Moving target score: ${localStorage.getItem("movingScore") ? localStorage.getItem("movingScore") : 'Nothing yet!'}`;
+    document.getElementById("staticTargTxt").innerText = `Static target score: ${localStorage.getItem("staticScore") ? localStorage.getItem("staticScore") : 'Nothing yet!'}`;
+    document.getElementById("pistolTargTxt").innerText = `Pistol target score: ${localStorage.getItem("pistolScore") ? localStorage.getItem("pistolScore") : 'Nothing yet!'}`;
+}
+
 function main() {
-    document.getElementById("scopeMoving").style.display = "inline"
-    document.getElementById("targetMoving").style.display = "inline"
+    document.getElementById("scopeMoving").style.display = "inline";
+    document.getElementById("targetMoving").style.display = "inline";
+
+    getHighscores();
 
     SCORE_TABLE = document.getElementById("scoreTable");
     SCORE_TABLE.children[0].children[1].children[6].innerHTML = TOTAL_SCORE;
@@ -536,6 +547,28 @@ function drawShot(shot) {
         var context = canvas.getContext('2d');
         context.drawImage(document.getElementById("paper" + CURRENT), 0, 0);
     }
+}
+
+/**
+ * Toggle visibility of main menu and rest of the game.
+ * @param {boolean} hide 
+ */
+function toggleMenu(hide) {
+    getHighscores();
+    const top = document.getElementById('topDiv');
+    const bot = document.getElementById('bottomDiv');
+    const menu = document.getElementById('mainMenu');
+    if (hide) {
+        top.classList.remove('hidden-toggle');
+        bot.classList.remove('hidden-toggle');
+        menu.classList.add('hidden-toggle');
+    }else {
+        resetScore();
+        top.classList.add('hidden-toggle');
+        bot.classList.add('hidden-toggle');
+        menu.classList.remove('hidden-toggle');
+    }
+
 }
 
 requestAnimationFrame(swayMouse);

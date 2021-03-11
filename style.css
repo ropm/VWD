@@ -8,7 +8,6 @@ body {
 button {
     bottom: 10px;
     margin-left: 1em;
-    
 }
 
 canvas {
@@ -71,7 +70,6 @@ canvas {
     left: 0;
     right: 0;
     padding: 1%;
-
 }
 
 /* Pisteentaulukko */
@@ -112,3 +110,18 @@ td {
     display: none;
 }
 
+#mainMenu {
+    text-align: center;
+    color: #f8f8f8;
+}
+
+.issfLogo {
+    width: 100px;
+    height: auto;
+}
+
+.issfLogo:hover {
+    width: 103px;
+    height: auto;
+    cursor: pointer;
+}
