@@ -16,6 +16,8 @@ var LAST_SHOT = 10;
 var SWAY_BOOL
 //var first = 0;
 var shots = [];
+var timer = true; 
+
 
 
 let interval = null;
@@ -85,7 +87,14 @@ function addScore(hit){
     //SWAYX = 500
     
     if (CURRENT_BULLET > 10) {
-        console.log("no bullets left")
+        if (timer == true) {
+            document.getElementById("bulletsLeft").className = "noBulletsLeft noBorder";
+            timer = false;
+            setTimeout(function(){
+                document.getElementById("bulletsLeft").className = "noBorder"
+                timer = true;
+            },1500)
+        }
 		play_audio("gun_empty")
         return
     }
@@ -113,21 +122,27 @@ function addScore(hit){
         console.log(localStorage.getItem("movingScore"))
         if (CURRENT == "Moving") {
             console.log("moving", localStorage.getItem(parseInt("movingScore")))
-            if (localStorage.getItem(parseInt("movingScore")) < TOTAL_SCORE || localStorage.getItem(parseInt("movingScore") != null)) {
+            if (parseInt(localStorage.getItem("movingScore")) < TOTAL_SCORE || localStorage.getItem("movingScore") == null) {
                 localStorage.setItem("movingScore", TOTAL_SCORE);
                 SCORE_TABLE.children[0].children[1].children[7].innerHTML = localStorage.getItem("movingScore");
+                newPersonalBest()
             } 
         } else if (CURRENT == "Pistol") {
             console.log("pistol")
-            if (localStorage.getItem(parseInt("pistolScore")) < TOTAL_SCORE) {
+            if (parseInt(localStorage.getItem("pistolScore")) < TOTAL_SCORE || localStorage.getItem("pistolScore") == null) {
+                console.log(localStorage.getItem("pistolScore"), TOTAL_SCORE)
                 localStorage.setItem("pistolScore", TOTAL_SCORE);
                 SCORE_TABLE.children[0].children[1].children[7].innerHTML = localStorage.getItem("pistolScore");
+                newPersonalBest()
+
             } 
         } else if (CURRENT == "Static") {
             console.log("static")
-            if (localStorage.getItem(parseInt("staticScore")) < TOTAL_SCORE) {
+            if (parseInt(localStorage.getItem("staticScore")) < TOTAL_SCORE || localStorage.getItem("staticScore") == null) {
                 localStorage.setItem("staticScore", TOTAL_SCORE);
                 SCORE_TABLE.children[0].children[1].children[7].innerHTML = localStorage.getItem("staticScore");
+                newPersonalBest()
+
             } 
         }
     }
@@ -137,7 +152,19 @@ function play_audio(src_id) {
     document.getElementById(src_id).currentTime = 0;
     document.getElementById(src_id).play();
 };
-
+function newPersonalBest () {
+    //console.log(timer);
+    if (timer == true) {
+        document.getElementById("personalBest").className = "newPersonalBest";
+        document.getElementById("totalScore").className = "newPersonalBest";
+        timer = false;
+        setTimeout(function(){
+            document.getElementById("personalBest").className = "personalBest";
+            document.getElementById("totalScore").className = "total";
+            timer = true;
+        },4000)
+    }
+}
 
 /**
  * This function makes sight/mouse to wiggle

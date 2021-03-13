@@ -80,6 +80,7 @@ canvas {
     width: 40%;
     text-align: center;
     font-weight: bold;
+    max-height: 125px;
 }
 
 th {
@@ -95,14 +96,14 @@ td {
 
 th,
 td {
-    padding: 2%;
+    padding: 10px;
 }
 
 .blank_row {
     background-color: #4e7e80;
 }
 
-#noBorder {
+.noBorder {
     border: none;
 }
 
@@ -125,3 +126,31 @@ td {
     height: auto;
     cursor: pointer;
 }
+
+.noBulletsLeft {
+    animation-name: colorChange;
+    animation-duration: 1.5s;
+    padding: 0px
+
+}
+
+@keyframes colorChange {
+    25%  {color: red; } 
+    50%  {color: black;}
+    100% {color: red;}
+}
+
+.newPersonalBest {
+    animation-name: colorChangePB;
+    animation-duration: 4s;
+    border: 2px solid #000;
+    border-collapse: collapse;
+    font-size: 30px;
+}
+@keyframes colorChangePB {
+    0%  {color: black;} 
+    25%  {color: yellow;} 
+    50%  {color: black;}
+    100% {color: yellow;}
+}
+
