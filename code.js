@@ -43,6 +43,7 @@ function setSway(){
     }
 }
 
+
 /**
  * Gets and sets highscores from localstorage to the main menu
  */
@@ -53,6 +54,16 @@ function getHighscores() {
 }
 
 function main() {
+    // Get the game over modal
+    var modal = document.getElementById('gameover');
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+    }
+
     document.getElementById("scopeMoving").style.display = "inline";
     document.getElementById("targetMoving").style.display = "inline";
 
@@ -119,6 +130,8 @@ function addScore(hit){
 	CURRENT_BULLET++;
 
     if (CURRENT_BULLET > 10) {
+        // panokset loppuu
+        document.getElementById('gameover').style.display='block'
         console.log(localStorage.getItem("movingScore"))
         if (CURRENT == "Moving") {
             console.log("moving", localStorage.getItem(parseInt("movingScore")))
@@ -322,7 +335,7 @@ function swayMouse (a) {
     }else{
         updateMouse(POINTX, POINTY)
     }
-    document.getElementById("reticle_coords").innerHTML = document.getElementById('scope'+CURRENT).style.transform +' - mouse X:'+SWAYX+'-Y:'+SWAYY +'--'+LAST_SHOT
+    //document.getElementById("reticle_coords").innerHTML = document.getElementById('scope'+CURRENT).style.transform +' - mouse X:'+SWAYX+'-Y:'+SWAYY +'--'+LAST_SHOT
     requestAnimationFrame(swayMouse);
   }
 

@@ -5,6 +5,7 @@
         <title>ISSF shooting</title>
         <meta name='viewport' content='width=device-width, initial-scale=1'>
         <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
         <script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/127738/perlin.js'></script>
         <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>  No longer needed-->
         <script src="code.js"></script>
@@ -20,6 +21,14 @@
         <audio id="gun_empty">
             <source src="https://www.soundjay.com/mechanical/sounds/gun-trigger-click-01.mp3" type="audio/mpeg">
         </audio>
+        <div id="gameover" class="w3-modal">
+            <div class="w3-modal-content">
+                <div class="w3-container">
+                <p style="text-align:center; font-size:25px" >No more bullets!</p>
+                <p style="text-align:center; font-size:20px" >Retry by selecting mode</p>
+                </div>
+            </div>
+        </div>
         <div id="mainMenu">
             <h1>ISSF shooting simulator</h1>
             <img class="issfLogo" src="issf_logo.png" onclick="toggleMenu(true)"/>
@@ -43,12 +52,12 @@
             <img src="scopeMoving.svg" style="display:none" class="scope sMoving" id="scopeMoving"/>
         </div>
         <div id="bottomDiv" class="bottom hidden-toggle" onmouseover="mouseHover(false)">
-            <button onclick="toggleMenu(false)">Back to menu</button>
-            <button onclick="changePistol()">Pistol</button>
-            <button onclick="changeStatic()">Static</button>
-            <button onclick="changeMoving()">Moving target</button>
+            <button class="button_back" onclick="toggleMenu(false)">Back to menu</button>
+            <button class="button" onclick="changePistol()">Pistol</button>
+            <button class="button" onclick="changeStatic()">Static</button>
+            <button class="button" onclick="changeMoving()">Moving target</button>
             <label for="movingSpeed" id="movingSpeedLabel">Moving target speed:</label>
-            <select name="movingSpeed" id="movingSpeed" onchange="onSpeedChange()">
+            <select class="custom-select" name="movingSpeed" id="movingSpeed" onchange="onSpeedChange()">
               	<option value="2.5">Fast</option>
               	<option value="5">Slow</option>
             </select>
