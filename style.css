@@ -21,10 +21,14 @@ button {
     font-size: 12px;
     margin: 4px 2px;
     cursor: pointer;
-  }
+}
+
+.button_back:hover {
+    background-color: #161616;
+}
 
 .button {
-    background-color: #4CAF50;
+    background-color: #4caf50;
     border: none;
     color: white;
     padding: 10px 32px;
@@ -34,7 +38,11 @@ button {
     font-size: 16px;
     margin: 4px 2px;
     cursor: pointer;
-  }
+}
+
+.button:hover {
+    background-color: #389b3b;
+}
 
 canvas {
     position: fixed;
@@ -156,14 +164,19 @@ td {
 .noBulletsLeft {
     animation-name: colorChange;
     animation-duration: 1.5s;
-    padding: 0px
-
+    padding: 0px;
 }
 
 @keyframes colorChange {
-    25%  {color: red; } 
-    50%  {color: black;}
-    100% {color: red;}
+    25% {
+        color: red;
+    }
+    50% {
+        color: black;
+    }
+    100% {
+        color: red;
+    }
 }
 
 .newPersonalBest {
@@ -174,9 +187,16 @@ td {
     font-size: 30px;
 }
 @keyframes colorChangePB {
-    0%  {color: black;} 
-    25%  {color: yellow;} 
-    50%  {color: black;}
-    100% {color: yellow;}
+    0% {
+        color: black;
+    }
+    25% {
+        color: yellow;
+    }
+    50% {
+        color: black;
+    }
+    100% {
+        color: yellow;
+    }
 }
-
