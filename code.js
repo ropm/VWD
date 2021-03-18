@@ -78,7 +78,7 @@ function main() {
         SCORE_TABLE.children[0].children[1].children[7].innerHTML = 0;
     }
 
-    animate(); 
+    //animate(); 
     setInterval(calcDelta, 20);
     drawShot(false);
 }
@@ -126,7 +126,7 @@ function addScore(hit){
 
     document.getElementById("scoreTable").children[0].children[0].children[1].innerHTML = "<img src=\"bullet.svg\">" + `  ${10 - CURRENT_BULLET}` + "/10"
     
-	play_audio("gunshot");play_audio("shell");
+	play_audio("gunshot");//play_audio("shell");
 	CURRENT_BULLET++;
 
     if (CURRENT_BULLET > 10) {
@@ -140,6 +140,9 @@ function addScore(hit){
                 SCORE_TABLE.children[0].children[1].children[7].innerHTML = localStorage.getItem("movingScore");
                 newPersonalBest()
             } 
+            intervalClear();
+            var movingTarget = document.getElementById('targetMoving');
+            movingTarget.style.left = "47%"
         } else if (CURRENT == "Pistol") {
             console.log("pistol")
             if (parseInt(localStorage.getItem("pistolScore")) < TOTAL_SCORE || localStorage.getItem("pistolScore") == null) {
@@ -366,12 +369,15 @@ function calcDelta() {
 function toggleSpeedSelect(hide) {
     const speedSelect = document.getElementById('movingSpeed');
     const speedLabel = document.getElementById('movingSpeedLabel');
+    const movingInfo = document.getElementById('buttonInfo');
     if (hide) {
         speedSelect.classList.add('hidden-toggle');
         speedLabel.classList.add('hidden-toggle');
+        movingInfo.classList.add('hidden-toggle');
     }else {
         speedSelect.classList.remove('hidden-toggle');
         speedLabel.classList.remove('hidden-toggle');
+        movingInfo.classList.remove('hidden-toggle');
     }
 }
 
@@ -401,9 +407,9 @@ function animate() {
     const movingTarget = document.getElementById('targetMoving');
     const speed = document.getElementById('movingSpeed').value;
     const width = window.innerWidth;
-	const movePx = (INNER_RECT_WIDTH_PERCENTAGE * width)/(speed*60);
-    let currPos = 0;
-    let dir = 'R';
+	const movePx = Math.floor((INNER_RECT_WIDTH_PERCENTAGE * width)/(speed*60));
+    let currPos = 2000;
+    let dir = 'L';
     interval = setInterval(() => {
         if (dir === 'L') {
 			currPos = currPos - movePx;
@@ -473,7 +479,6 @@ function changeMoving() {
 
     toggleSpeedSelect(false);
     intervalClear();
-    animate();
 
     document.getElementById("scopeMoving").style.display = "inline";
     document.getElementById("targetMoving").style.display = "inline";
@@ -594,6 +599,11 @@ function drawShot(shot) {
  * @param {boolean} hide 
  */
 function toggleMenu(hide) {
+    
+    resetScore();
+    drawShot(false);
+    shots = [];
+
     getHighscores();
     const top = document.getElementById('topDiv');
     const bot = document.getElementById('bottomDiv');
@@ -609,6 +619,17 @@ function toggleMenu(hide) {
         menu.classList.remove('hidden-toggle');
     }
 
+}
+
+/**
+ * Shows info about moving target
+ */
+function targetInfo() {
+    alert("You have 10 rounds to try to shoot at target.\nTarget starts from right and goes to left.\nUse alternating pylons in scope to shoot at the center. First use right pylon for run to left.\nHere the target runs until you have shot all 10 bullets and not in 10 runs.")
+    resetScore();
+    drawShot(false);
+    shots = [];
+    animate();
 }
 
 requestAnimationFrame(swayMouse);

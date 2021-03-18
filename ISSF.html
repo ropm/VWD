@@ -13,7 +13,7 @@
     </head>
     <body onload="main()">
 	     <audio id="gunshot">
-            <source src="https://www.soundjay.com/mechanical/sounds/gun-gunshot-02.mp3" type="audio/mpeg">
+            <source src="/shots/shot1.wav" type="audio/mpeg">
         </audio>
         <audio id="shell">
             <source src="https://www.soundjay.com/mechanical/sounds/empty-bullet-shell-fall-01.mp3" type="audio/mpeg">
@@ -61,8 +61,7 @@
               	<option value="2.5">Fast</option>
               	<option value="5">Slow</option>
             </select>
-            <!--<p id="SX">X</p>-->
-            <!--<p id="SY">Y</p>-->
+            <button id="buttonInfo" class="button" onclick="targetInfo()">Moving target start</button>
             <table style="float: inline-start;" id="scoreTable">
             	<tr>
             	  	<th colspan="1" class="noBorder" >Bullets</th>
