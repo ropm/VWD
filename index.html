@@ -6,6 +6,7 @@
         <meta name='viewport' content='width=device-width, initial-scale=1'>
         <link rel="stylesheet" href="style.css">
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<link rel="icon" type="image/png" href="issf_logo.png"/>
         <script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/127738/perlin.js'></script>
         <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>  No longer needed-->
         <script src="code.js"></script>
@@ -13,7 +14,7 @@
     </head>
     <body onload="main()">
 	     <audio id="gunshot">
-            <source src="/shots/shot1.wav" type="audio/mpeg">
+            <source src="shot1.wav" type="audio/mpeg">
         </audio>
         <audio id="shell">
             <source src="https://www.soundjay.com/mechanical/sounds/empty-bullet-shell-fall-01.mp3" type="audio/mpeg">
@@ -47,9 +48,9 @@
             <img src="TargetStatic.svg" style="display:none" class="target tStatic" id="targetStatic"/>
             <img src="TargetMoving.svg" style="display:none" class="target tMoving" id="targetMoving"/>
             <img src="Shooting.svg"    style=display:inline class="base noMouse" id="frameMoving"/>
-            <img src="scopePistol.svg" style="display:none" class="scope sStatic" id="scopePistol"/>
-            <img src="scopeStatic.svg" style="display:none" class="scope sStatic" id="scopeStatic"/>
-            <img src="scopeMoving.svg" style="display:none" class="scope sMoving" id="scopeMoving"/>
+            <img src="ScopePistol.svg" style="display:none" class="scope sStatic" id="scopePistol"/>
+            <img src="ScopeStatic.svg" style="display:none" class="scope sStatic" id="scopeStatic"/>
+            <img src="ScopeMoving.svg" style="display:none" class="scope sMoving" id="scopeMoving"/>
         </div>
         <div id="bottomDiv" class="bottom hidden-toggle" onmouseover="mouseHover(false)">
             <button class="button_back" onclick="toggleMenu(false)">Back to menu</button>
